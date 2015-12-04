@@ -13,7 +13,11 @@ interface GameStorageInterface
 {
     public function get($gameId);
 
-    public function add($gameId);
+    /**
+     * @param GameInterface $game
+     * @return $gameId
+     */
+    public function add( GameInterface $game);
 
     public function update($gameId);
 

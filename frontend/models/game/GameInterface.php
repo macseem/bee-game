@@ -9,9 +9,7 @@
 namespace frontend\models\game;
 
 
-use frontend\models\game\base\HitTakerInterface;
-
-interface GameInterface extends  HitTakerInterface
+interface GameInterface
 {
 
     public function init(GameStorageInterface $storage);
@@ -20,11 +18,14 @@ interface GameInterface extends  HitTakerInterface
 
     public function start();
 
-    public function hit();//continue
+    public function hit();
 
     public function end();
 
     public function reset();
 
-
+    /**
+     * @return PlayerInterface
+     */
+    public function getPlayer();
 }
