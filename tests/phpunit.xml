@@ -1,0 +1,13 @@
+<phpunit bootstrap="bootstrap.php">
+    <testsuites>
+        <testsuite name="characters">
+            <directory>characters</directory>
+        </testsuite>
+        <testsuite name="inside-game">
+            <directory>game/inside</directory>
+        </testsuite>
+        <testsuite name="outside-game">
+            <directory>game/outside</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
