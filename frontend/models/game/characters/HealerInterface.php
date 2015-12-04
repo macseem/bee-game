@@ -10,9 +10,10 @@ namespace frontend\models\game\characters;
 
 
 use frontend\models\game\base\DoctorInterface;
+use frontend\models\game\base\SearchBeeInterface;
 use frontend\models\game\BeeInterface;
 
-interface HealerInterface extends BeeInterface, DoctorInterface
+interface HealerInterface extends BeeInterface, DoctorInterface, SearchBeeInterface
 {
 
 }
