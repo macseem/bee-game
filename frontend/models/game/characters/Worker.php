@@ -38,11 +38,6 @@ class Worker extends Bee implements WorkerInterface
 
     public function beforeTakeHit()
     {
-        // TODO: Implement beforeTakeHit() method.
-    }
-
-    public function afterTakeHit()
-    {
         $this->makeHoney($this->getHoneyPool());
     }
 }

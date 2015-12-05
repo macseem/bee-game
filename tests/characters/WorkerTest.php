@@ -49,12 +49,12 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThan($expected, $actual);
     }
 
-    public function testAfterHit()
+    public function testBeforeTakeHit()
     {
         /** @var Worker $bee */
         $bee = $this->game->getCharacterPool()->searchBee();
         $expected = $this->game->getHoneyPool()->amount();
-        $bee->afterTakeHit();
+        $bee->beforeTakeHit();
         $actual = $this->game->getHoneyPool()->amount();
 
         $this->assertGreaterThan($expected, $actual);

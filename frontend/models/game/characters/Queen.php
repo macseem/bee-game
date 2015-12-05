@@ -14,16 +14,6 @@ use frontend\models\game\base\Bee;
 class Queen extends Bee implements QueenInterface
 {
 
-    public function toDie()
-    {
-        // TODO: Implement toDie() method.
-    }
-
-    public function killAll()
-    {
-        $this->getCharacterPool()->killAll();
-    }
-
     public function getType()
     {
         return self::BEE_TYPE_QUEEN;
@@ -34,10 +24,15 @@ class Queen extends Bee implements QueenInterface
         return 100;
     }
 
-
     function getHitAmount($criticalPercent)
     {
         return 8 + 8/100*$criticalPercent;
+    }
+
+
+    public function killAll()
+    {
+        $this->getCharacterPool()->killAll();
     }
 
     public function beforeTakeHit()
@@ -45,8 +40,4 @@ class Queen extends Bee implements QueenInterface
         // TODO: Implement beforeTakeHit() method.
     }
 
-    public function afterTakeHit()
-    {
-        // TODO: Implement afterTakeHit() method.
-    }
 }

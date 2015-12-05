@@ -9,31 +9,67 @@
 namespace tests\game\inside;
 
 
+use frontend\models\game\base\CharacterPool;
+use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
 use frontend\models\game\Game;
 
 class GameHitTest extends \PHPUnit_Framework_TestCase
 {
-    private function onceBeforeNowAfter(\PHPUnit_Framework_MockObject_MockObject &$mock, $method)
+    /** @var  Game */
+    private $game;
+
+    public function setUp()
     {
-        $mock->expects($this->once())->method('before' . ucfirst($method))->willReturn(true);
-        $mock->expects($this->once())->method($method)->willReturn(true);
-        $mock->expects($this->once())->method('after' . ucfirst($method))->willReturn(true);
+        $this->game = new Game(new CharacterPool(), new HoneyPool());
+    }
+    public function tearDown()
+    {
+        unset($this->game);
     }
 
-    public function testHit()
+    private function getMockObject($class, array $args, array $methods)
     {
-        $player = $this->getMockBuilder(Player::class)->disableOriginalConstructor()->getMock();
-        $this->onceBeforeNowAfter($player, 'hit');
-        $bee = $this->getMockBuilder(Drone::class)->disableOriginalConstructor()->getMock();
-        $this->onceBeforeNowAfter($bee, 'takeHit');
-        $game = $this->getMockBuilder(Game::class)->disableOriginalConstructor()->getMock();
-        $game->expects($this->once())->method('getPlayer')->willReturn($player);
-        $game->expects($this->once())->method('searchBee')->willReturn($bee);
+        $mock = $this->getMockBuilder($class)->enableOriginalConstructor()
+            ->setConstructorArgs($args)->setMethods(array_keys($methods))->getMock();
+        foreach($methods as $method => $params) {
+            $mock->expects($params['times'])->method($method);
+        }
+        return $mock;
+    }
 
-        $method = new \ReflectionMethod(Game::class, 'hit');
-        $method->invoke($game);
 
+    public function testHitDroneByMockCalls()
+    {
+        /** @var Player | \PHPUnit_Framework_MockObject_MockObject $playerMock */
+        $playerMock = $this->getMockObject(Player::class, [], [
+            'beforeHit' => [ 'times' => $this->once(), 'return' => true ],
+            'hit' => [ 'times' => $this->once(), 'return' => true ],
+            'afterHit' => [ 'times' => $this->once(), 'return' => true ],
+
+        ]);
+
+        /** @var Drone | \PHPUnit_Framework_MockObject_MockObject $droneMock */
+        $droneMock = $this->getMockObject(Drone::class, [$this->game], [
+            'beforeTakeHit' => [ 'times' => $this->once(), 'return' => true ],
+            'takeHit' => [ 'times' => $this->once(), 'return' => true ],
+        ]);
+        $this->game->getCharacterPool()->setPlayer($playerMock);
+        $this->game->getCharacterPool()->addBee($droneMock);
+        $this->game->hit();
+    }
+
+    public function testHitDroneByLifespan()
+    {
+        $this->game->getCharacterPool()->setPlayer(new Player());
+        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $droneExpected = $this->game->searchBee()->getLifespan();
+        $playerExpected = $this->game->searchBee()->getLifespan();
+        $this->game->hit();
+        $droneActual = $this->game->searchBee()->getLifespan();
+        $playerActual = $this->game->searchBee()->getLifespan();
+        $this->assertLessThan($droneExpected, $droneActual);
+        $this->assertLessThan($playerExpected, $playerActual);
     }
 }

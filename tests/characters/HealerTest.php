@@ -52,12 +52,12 @@ class HealerTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testHeal
      */
-    public function testAfterTakeHit()
+    public function testBeforeTakeHit()
     {
         $this->game->getCharacterPool()->searchBee()->takeHit(100);
 
         $expected = $this->game->getCharacterPool()->searchBee()->getLifespan();
-        $this->game->getCharacterPool()->searchBee()->afterTakeHit();
+        $this->game->getCharacterPool()->searchBee()->beforeTakeHit();
         $actual = $this->game->getCharacterPool()->searchBee()->getLifespan();
         $this->assertGreaterThan($expected, $actual);
     }

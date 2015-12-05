@@ -49,6 +49,9 @@ class CharacterPool implements CharacterPoolInterface
     {
         if($bee->getType() != BeeTypesInterface::BEE_TYPE_QUEEN){
             $this->bees[] = $bee;
+            end($this->bees);
+            $bee->setId(key($this->bees));
+            reset($this->bees);
             return true;
         }
 
@@ -58,6 +61,7 @@ class CharacterPool implements CharacterPoolInterface
         $this->bees[] = $bee;
         end($this->bees);
         $this->queen = key($this->bees);
+        $bee->setId($this->queen);
         reset($this->bees);
         return true;
 
@@ -88,5 +92,12 @@ class CharacterPool implements CharacterPoolInterface
     public function killAll()
     {
         $this->bees=[];
+    }
+
+    public function kill($id)
+    {
+        if(!isset($this->bees[$id]))
+            return false;
+        unset($this->bees[$id]);
     }
 }

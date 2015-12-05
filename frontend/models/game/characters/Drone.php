@@ -48,18 +48,8 @@ class Drone extends Bee implements DroneInterface
 
     public function beforeTakeHit()
     {
-        // TODO: Implement beforeTakeHit() method.
-    }
-
-    function afterTakeHit()
-    {
         $this->beforeHit();
         $this->hit($this->getPlayer());
         $this->afterTakeHit();
-    }
-
-    public function toDie()
-    {
-        $this->setLifespan(0);
     }
 }

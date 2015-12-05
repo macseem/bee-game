@@ -33,10 +33,6 @@ class Healer extends Bee implements HealerInterface
         return $this->getCharacterPool()->searchBee();
     }
 
-    public function toDie()
-    {
-        // TODO: Implement toDie() method.
-    }
 
     public function getType()
     {
@@ -59,8 +55,5 @@ class Healer extends Bee implements HealerInterface
         $this->heal($this->searchBee(), $this->getHoneyPool());
     }
 
-    public function afterTakeHit()
-    {
-        $this->heal($this->searchBee(), $this->getHoneyPool());
-    }
+
 }

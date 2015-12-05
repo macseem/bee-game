@@ -10,7 +10,6 @@ namespace frontend\models\game\characters;
 
 
 use frontend\models\game\base\CharacterInterface;
-use frontend\models\game\BeeInterface;
 
 class Player implements PlayerInterface
 {

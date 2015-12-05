@@ -10,6 +10,7 @@ namespace frontend\models\game\base;
 
 
 
+use frontend\exceptions\ReadOnlyException;
 use frontend\models\game\GameInterface;
 
 abstract class Bee implements BeeInterface
@@ -17,17 +18,31 @@ abstract class Bee implements BeeInterface
     /** @var  GameInterface */
     private $game;
     private $lifespan;
-
+    private $id;
 
     abstract public function getLifespanMax();
 
     abstract public function getHitAmount($criticalPercent);
 
-    public function __construct(GameInterface $game)
+    final public function __construct(GameInterface $game)
     {
         $this->lifespan = $this->getLifespanMax();
         $this->game = $game;
+        $this->init();
     }
+
+    public function setId($id)
+    {
+        if($this->id===null)
+            return $this->id = $id;
+        throw new ReadOnlyException("You can set Id only one time", 403);
+    }
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function init() {}
 
     public function getPlayer()
     {
@@ -58,7 +73,11 @@ abstract class Bee implements BeeInterface
         $this->setLifespan($this->getLifespan() - $this->getHitAmount($criticalPercent));
     }
 
-    abstract public function afterTakeHit();
+    final public function afterTakeHit()
+    {
+        if($this->getLifespan() <=0 )
+            $this->toDie();
+    }
 
 
     public function beforeDead()
@@ -67,9 +86,9 @@ abstract class Bee implements BeeInterface
     }
 
 
-    public function toDie()
+    final public function toDie()
     {
-        $this->setLifespan(0);
+        $this->game->getCharacterPool()->kill($this->id);
     }
 
     public function getHoneyPool()

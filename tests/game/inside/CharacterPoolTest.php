@@ -9,7 +9,6 @@
 namespace tests\game\inside;
 
 
-use frontend\exceptions\FullPoolByTypeException;
 use frontend\models\game\base\BeeInterface;
 use frontend\models\game\base\CharacterPool;
 use frontend\models\game\base\HoneyPool;

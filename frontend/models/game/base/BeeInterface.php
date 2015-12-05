@@ -11,5 +11,8 @@ namespace frontend\models\game\base;
 
 interface BeeInterface extends CharacterInterface, GetPlayerInterface, BeeTypesInterface, GetHoneyPoolInterface
 {
+    public function setId($id);
+    public function getId();
+
     public function getType();
 }
