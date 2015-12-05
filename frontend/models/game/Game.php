@@ -11,19 +11,22 @@ namespace frontend\models\game;
 
 use frontend\models\game\base\BeeInterface;
 use frontend\models\game\base\CharacterPoolInterface;
+use frontend\models\game\base\HoneyPoolInterface;
 use frontend\models\game\characters\PlayerInterface;
 
 class Game implements GameInterface
 {
-    private $pool;
+    private $characterPool;
+    private $honeyPool;
     private $started;
     private $finished;
     private $time;
     private $result;
 
-    public function __construct(CharacterPoolInterface $pool)
+    public function __construct(CharacterPoolInterface $pool, HoneyPoolInterface $honeyPool)
     {
-        $this->pool = $pool;
+        $this->characterPool = $pool;
+        $this->honeyPool = $honeyPool;
     }
 
 
@@ -117,6 +120,14 @@ class Game implements GameInterface
      */
     public function getCharacterPool()
     {
-        return $this->pool;
+        return $this->characterPool;
+    }
+
+    /**
+     * @return HoneyPoolInterface
+     */
+    public function getHoneyPool()
+    {
+        return $this->honeyPool;
     }
 }

@@ -12,6 +12,7 @@ namespace tests\game\inside;
 use frontend\exceptions\FullPoolByTypeException;
 use frontend\models\game\base\BeeInterface;
 use frontend\models\game\base\CharacterPool;
+use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Healer;
 use frontend\models\game\characters\Player;
@@ -30,7 +31,7 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         self::$pool = new CharacterPool();
-        self::$game = new Game(self::$pool);
+        self::$game = new Game(self::$pool, new HoneyPool());
     }
 
     public static function tearDownAfterClass()

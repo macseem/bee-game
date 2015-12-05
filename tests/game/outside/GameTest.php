@@ -10,17 +10,26 @@ namespace tests\game\outside;
 
 
 use frontend\models\game\base\CharacterPool;
+use frontend\models\game\base\HoneyPool;
 use frontend\models\game\Game;
 use frontend\models\game\GameInterface;
 
 class GameTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var  Game */
+    private $game;
     /** @var  CharacterPool */
     private $pool;
     
     public function setUp()
     {
-        $this->pool = new CharacterPool();    
+        $this->pool = new CharacterPool();
+        $this->game = new Game($this->pool, new HoneyPool());
+    }
+
+    public function tearDown()
+    {
+        unset($this->pool, $this->game);
     }
 
     private function getReflectionPropertyVal(\ReflectionClass $reflection, $object, $property)
@@ -57,48 +66,44 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
     public function isStartedProvider()
     {
-        $startedGame = new Game(new CharacterPool());
+        $startedGame = new Game(new CharacterPool(), new HoneyPool());
         $startedGame->start();
         return [
             [ $startedGame, true ],
-            [ new Game(new CharacterPool()), false ]
+            [ new Game(new CharacterPool(), new HoneyPool()), false ]
         ];
     }
 
     public function testStart()
     {
-        $game = new Game($this->pool);
-        $game->start();
-        $this->assertTrue($game->isStarted());
+        $this->game->start();
+        $this->assertTrue($this->game->isStarted());
     }
 
 
     public function testReset()
     {
-        $game = new Game($this->pool);
-        $game->start();
-        $game->reset();
-        $this->assertFalse($game->isStarted());
+        $this->game->start();
+        $this->game->reset();
+        $this->assertFalse($this->game->isStarted());
     }
 
     public function testWin()
     {
-        $game = new Game($this->pool);
-        $game->start();
-        $game->getCharacterPool()->killAll();
-        $game->win();
-        $this->assertTrue($game->isFinished());
-        $this->assertEquals(GameInterface::RESULT_WIN, $game->getResult());
-        $this->assertEquals(0, count($game->getCharacterPool()->getBees()));
+        $this->game->start();
+        $this->game->getCharacterPool()->killAll();
+        $this->game->win();
+        $this->assertTrue($this->game->isFinished());
+        $this->assertEquals(GameInterface::RESULT_WIN, $this->game->getResult());
+        $this->assertEquals(0, count($this->game->getCharacterPool()->getBees()));
     }
 
     public function testLose()
     {
-        $game = new Game($this->pool);
-        $game->start();
-        $game->lose();
-        $this->assertTrue($game->isFinished());
-        $this->assertEquals(GameInterface::RESULT_LOSE, $game->getResult());
+        $this->game->start();
+        $this->game->lose();
+        $this->assertTrue($this->game->isFinished());
+        $this->assertEquals(GameInterface::RESULT_LOSE, $this->game->getResult());
     }
 
     /**
@@ -107,16 +112,15 @@ class GameTest extends \PHPUnit_Framework_TestCase
     public function testGameTime()
     {
         $reflection = new \ReflectionClass(Game::class);
-        $game = new Game(new CharacterPool());
-        $game->start();
-        $game->finish();
+        $this->game->start();
+        $this->game->finish();
 
-        $started = $this->getReflectionPropertyVal($reflection, $game, 'started');
-        $finished = $this->getReflectionPropertyVal($reflection, $game, 'finished');
+        $started = $this->getReflectionPropertyVal($reflection, $this->game, 'started');
+        $finished = $this->getReflectionPropertyVal($reflection, $this->game, 'finished');
         /** @var Game $game */
-        $this->assertTrue($game->isStarted());
-        $this->assertTrue($game->isFinished());
-        $this->assertEquals($finished - $started, $game->gameTime());
+        $this->assertTrue($this->game->isStarted());
+        $this->assertTrue($this->game->isFinished());
+        $this->assertEquals($finished - $started, $this->game->gameTime());
     }
 
 

@@ -10,6 +10,7 @@ namespace tests\characters;
 
 
 use frontend\models\game\base\CharacterPool;
+use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
 use frontend\models\game\Game;
@@ -23,7 +24,7 @@ class DroneTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->game = new Game(new CharacterPool());
+        $this->game = new Game(new CharacterPool(), new HoneyPool());
         $this->drone = new Drone($this->game);
         $this->game->getCharacterPool()->addBee($this->drone);
     }

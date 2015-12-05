@@ -11,6 +11,7 @@ namespace tests\characters;
 
 use frontend\models\game\base\BeeInterface;
 use frontend\models\game\base\CharacterPool;
+use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
 use frontend\models\game\Game;
@@ -49,10 +50,9 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
 
     public function testHit()
     {
-        $pool = new CharacterPool();
-        $game = new Game($pool);
+        $game = new Game(new CharacterPool(), new HoneyPool());
         $bee = new Drone($game);
-        $pool->addBee($bee);
+        $game->getCharacterPool()->addBee($bee);
         $firstLifespan = $bee->getLifespan();
         $this->player->hit($bee);
         $secondLifespan = $bee->getLifespan();
