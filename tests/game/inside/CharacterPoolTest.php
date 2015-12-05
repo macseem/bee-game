@@ -122,4 +122,17 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(BeeInterface::class, self::$pool->searchBee());
     }
 
+    /**
+     * @depends testSearchBee
+     */
+    public function testKillAll()
+    {
+        $expectedCount = count(self::$pool->getBees());
+        self::$pool->killAll();
+        $actualCount = count(self::$pool->getBees());
+        $this->assertLessThan($expectedCount, $actualCount);
+        $this->assertEquals(0, $actualCount);
+
+    }
+
 }

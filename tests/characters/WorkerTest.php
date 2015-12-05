@@ -24,6 +24,10 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         $this->game = new Game(new CharacterPool(), new HoneyPool());
         $this->game->getCharacterPool()->addBee(new Worker($this->game));
     }
+    public function tearDown()
+    {
+        unset($this->game);
+    }
 
     public function testTakeHit()
     {

@@ -21,7 +21,7 @@ class Queen extends Bee implements QueenInterface
 
     public function killAll()
     {
-        // TODO: Implement killAll() method.
+        $this->getCharacterPool()->killAll();
     }
 
     public function getType()

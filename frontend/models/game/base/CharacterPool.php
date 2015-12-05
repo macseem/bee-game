@@ -87,11 +87,6 @@ class CharacterPool implements CharacterPoolInterface
 
     public function killAll()
     {
-        foreach($this->bees as $key => $bee) {
-            $bee->beforeDead();
-            $bee->toDie();
-            $bee->setLifespan(0);
-            unset($bee);
-        }
+        $this->bees=[];
     }
 }
