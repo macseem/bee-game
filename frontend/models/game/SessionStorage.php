@@ -14,7 +14,7 @@ class SessionStorage implements GameStorageInterface
 
     public function get()
     {
-        // TODO: Implement get() method.
+        return unserialize(\Yii::$app->session->get('game'));
     }
 
     /**

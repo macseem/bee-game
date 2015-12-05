@@ -28,4 +28,9 @@ RUN apt-get update && apt-get install -y php5-mongo && \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer &&\
     composer global require fxp/composer-asset-plugin
 
+RUN apt-get update && apt-get install -y php5-xdebug && \
+    cp /usr/lib/php5/20131226/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20131226 &&\
+        cp /etc/php5/mods-available/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+
 RUN usermod --uid 1000 www-data

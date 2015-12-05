@@ -29,7 +29,8 @@
     "yiisoft/yii2-debug": "*",
     "yiisoft/yii2-gii": "*",
     "yiisoft/yii2-faker": "*",
-    "phpunit/phpunit": "5.*"
+    "phpunit/phpunit": "5.*",
+    "phpunit/php-code-coverage": "^3"
   },
   "config": {
     "process-timeout": 1800
