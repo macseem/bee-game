@@ -16,7 +16,7 @@ class HoneyPool implements HoneyPoolInterface
 
     public function amount()
     {
-        return $this->amount();
+        return $this->amount;
     }
 
     public function takeHoney($amount)
