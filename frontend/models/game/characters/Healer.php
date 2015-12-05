@@ -30,7 +30,7 @@ class Healer extends Bee implements HealerInterface
      */
     public function searchBee()
     {
-        // TODO: Implement searchBee() method.
+        return $this->getCharacterPool()->searchBee();
     }
 
     public function toDie()

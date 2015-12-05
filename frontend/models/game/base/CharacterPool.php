@@ -77,7 +77,7 @@ class CharacterPool implements CharacterPoolInterface
     public function searchBee()
     {
         $max = count($this->bees)-1;
-        if( $max <= 0)
+        if( $max < 0)
             return false;
         if(is_callable($this->randomCallable))
             $number = call_user_func_array($this->randomCallable, [0,$max]);

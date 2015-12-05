@@ -26,6 +26,7 @@ abstract class Bee implements BeeInterface
     public function __construct(GameInterface $game)
     {
         $this->lifespan = $this->getLifespanMax();
+        $this->game = $game;
     }
 
     public function getPlayer()
@@ -33,6 +34,10 @@ abstract class Bee implements BeeInterface
         return $this->game->getPlayer();
     }
 
+    public function getCharacterPool()
+    {
+        return $this->game->getCharacterPool();
+    }
 
     public function getLifespan()
     {
