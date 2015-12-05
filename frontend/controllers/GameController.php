@@ -9,15 +9,39 @@
 namespace frontend\controllers;
 
 
+use frontend\models\game\GameBuilder;
+use frontend\models\game\GameBuilderInterface;
+use frontend\models\game\GameStorageInterface;
+use frontend\models\game\SessionStorage;
 use yii\web\Controller;
 
 class GameController extends Controller
 {
 
+    /** @var  GameStorageInterface */
+    private $storage;
+
+    public function beforeAction($action)
+    {
+        $this->storage = new SessionStorage(\Yii::$app->session);
+    }
+
     public function actionIndex()
     {
-        $session = \Yii::$app->session;
+        $game = $this->getGame(
+            $this->storage,
+            new GameBuilder(\Yii::$app->params['gameConfig'])
+        );
+
         return $this->render('index', $params);
+    }
+
+    private function getGame(GameStorageInterface $storage, GameBuilderInterface $builder)
+    {
+        if($game = $storage->get()){
+            return $game;
+        }
+        return $builder->buildGame();
     }
 
     public function actionRestart()
