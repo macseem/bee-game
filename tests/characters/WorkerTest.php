@@ -29,15 +29,6 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         unset($this->game);
     }
 
-    public function testTakeHit()
-    {
-        $bee = $this->game->getCharacterPool()->searchBee();
-        $expected = $bee->getLifespan();
-        $bee->takeHit(0);
-        $actual = $bee->getLifespan();
-        $this->assertLessThan($expected, $actual);
-    }
-
     public function testMakeHoney()
     {
         /** @var Worker $bee */

@@ -11,8 +11,10 @@ namespace tests\game\outside;
 
 use frontend\models\game\base\CharacterPool;
 use frontend\models\game\base\HoneyPool;
+use frontend\models\game\characters\Drone;
+use frontend\models\game\characters\Player;
 use frontend\models\game\Game;
-use frontend\models\game\GameInterface;
+use frontend\models\game\GameResultInterface;
 
 class GameTest extends \PHPUnit_Framework_TestCase
 {
@@ -88,24 +90,6 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->game->isStarted());
     }
 
-    public function testWin()
-    {
-        $this->game->start();
-        $this->game->getCharacterPool()->killAll();
-        $this->game->win();
-        $this->assertTrue($this->game->isFinished());
-        $this->assertEquals(GameInterface::RESULT_WIN, $this->game->getResult());
-        $this->assertEquals(0, count($this->game->getCharacterPool()->getBees()));
-    }
-
-    public function testLose()
-    {
-        $this->game->start();
-        $this->game->lose();
-        $this->assertTrue($this->game->isFinished());
-        $this->assertEquals(GameInterface::RESULT_LOSE, $this->game->getResult());
-    }
-
     /**
      *
      */
@@ -122,6 +106,39 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->game->isFinished());
         $this->assertEquals($finished - $started, $this->game->gameTime());
     }
+
+    public function testFinishNotStartedGameReturnFalse()
+    {
+        $this->assertFalse($this->game->finish());
+    }
+
+    public function testFinishStartedNotEmptyGameReturnFalse()
+    {
+        $this->game->getCharacterPool()->setPlayer(new Player());
+        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $this->assertFalse($this->game->finish());
+    }
+
+    public function testFinishStartedEmptyGameReturnDraw()
+    {
+        $this->game->start();
+        $this->assertEquals(GameResultInterface::RESULT_DRAW, $this->game->finish());
+    }
+
+    public function testFinishStartedGameWithPlayerAndEmptyBeesReturnWin()
+    {
+        $this->game->getCharacterPool()->setPlayer(new Player());
+        $this->game->start();
+        $this->assertEquals(GameResultInterface::RESULT_WIN, $this->game->finish());
+    }
+
+    public function testFinishStartedGameWithBeesAndEmptyPlayerReturnLose()
+    {
+        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $this->game->start();
+        $this->assertEquals(GameResultInterface::RESULT_LOSE, $this->game->finish());
+    }
+
 
 
 }

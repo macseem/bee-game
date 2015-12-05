@@ -30,11 +30,6 @@ class Game implements GameInterface
     }
 
 
-    public function start()
-    {
-        $this->started = time();
-    }
-
     public function hit()
     {
         $bee = $this->searchBee();
@@ -48,12 +43,6 @@ class Game implements GameInterface
 
         $player->afterHit();
         $bee->afterTakeHit();
-    }
-
-    public function finish()
-    {
-        $this->finished = time();
-        $this->time = $this->finished - $this->started;
     }
 
     public function reset()
@@ -79,9 +68,30 @@ class Game implements GameInterface
         return $this->getCharacterPool()->searchBee();
     }
 
+    public function start()
+    {
+        $this->started = time();
+    }
+
     public function isStarted()
     {
         return !empty($this->started);
+    }
+
+    public function finish()
+    {
+        if(!$this->isStarted() || (!empty($this->getCharacterPool()->getBees()) && !empty($this->getPlayer()))) {
+            return false;
+        }
+        $this->finished = time();
+        $this->time = $this->finished - $this->started;
+        if(empty($this->getCharacterPool()->getPlayer()) && empty($this->getCharacterPool()->getBees()))
+            return $this->setDrawResult();
+        if(empty($this->getCharacterPool()->getBees()))
+            return $this->setWinResult();
+        if(empty($this->getCharacterPool()->getPlayer()))
+            return $this->setLoseResult();
+
     }
 
     public function isFinished()
@@ -104,18 +114,19 @@ class Game implements GameInterface
         return $this->result;
     }
 
-    public function win()
+    public function setWinResult()
     {
-        $this->finish();
-        $this->result = self::RESULT_WIN;
-        return $this->result;
+        return $this->result = self::RESULT_WIN;
     }
 
-    public function lose()
+    public function setLoseResult()
     {
-        $this->finish();
-        $this->result = self::RESULT_LOSE;
-        return $this->result;
+        return $this->result = self::RESULT_LOSE;
+    }
+
+    public function setDrawResult()
+    {
+        return $this->result = self::RESULT_DRAW;
     }
 
     /**

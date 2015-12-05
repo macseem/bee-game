@@ -89,6 +89,7 @@ abstract class Bee implements BeeInterface
     final public function toDie()
     {
         $this->game->getCharacterPool()->kill($this->id);
+        $this->game->finish();
     }
 
     public function getHoneyPool()

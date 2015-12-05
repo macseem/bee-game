@@ -68,25 +68,4 @@ class DroneTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThan($droneExpected, $droneActual);
     }
 
-    public function testSetId()
-    {
-        $id = 1;
-        $drone = new Drone($this->game);
-        $drone->setId($id);
-        $actual = $drone->getId();
-        $this->assertEquals($id, $actual);
-    }
-
-    /**
-     * @depends testSetId
-     * @expectedException \frontend\exceptions\ReadOnlyException
-     * @throws \frontend\exceptions\ReadOnlyException
-     */
-    public function testSetIdSecondTime()
-    {
-        $drone = new Drone($this->game);
-        $drone->setId(1);
-        $drone->setId(1);
-    }
-
 }

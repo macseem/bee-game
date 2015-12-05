@@ -14,10 +14,18 @@ interface GameResultInterface
 
     const RESULT_WIN = 'win';
     const RESULT_LOSE = 'lose';
+    const RESULT_DRAW = 'draw';
 
-    public function win();
+    public function setWinResult();
 
-    public function lose();
+    public function setLoseResult();
+
+    public function setDrawResult();
+
+    /**
+     * @return bool
+     */
+    public function finish();
 
     public function getResult();
 }
