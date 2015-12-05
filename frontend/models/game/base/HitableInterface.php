@@ -11,7 +11,7 @@ namespace frontend\models\game\base;
 
 interface HitableInterface
 {
-    public function beforeHit(CharacterInterface $character);
+    public function beforeHit();
     public function hit(CharacterInterface $character);
-    public function afterHit(CharacterInterface $character);
+    public function afterHit();
 }

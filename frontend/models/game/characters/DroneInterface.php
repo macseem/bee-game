@@ -10,7 +10,7 @@ namespace frontend\models\game\characters;
 
 
 use frontend\models\game\base\HitableInterface;
-use frontend\models\game\BeeInterface;
+use frontend\models\game\base\BeeInterface;
 
 interface DroneInterface extends BeeInterface, HitableInterface
 {

@@ -11,7 +11,12 @@ namespace frontend\models\game;
 
 interface GameStorageInterface
 {
-    public function get($gameId);
+    public static function createFromGlobals();
+
+    /**
+     * @return GameInterface|bool FALSE
+     */
+    public function get();
 
     /**
      * @param GameInterface $game

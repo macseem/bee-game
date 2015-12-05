@@ -6,7 +6,7 @@
  * Time: 03:12
  */
 
-namespace frontend\models\game;
+namespace frontend\models\game\characters;
 
 
 use frontend\models\game\base\CharacterInterface;

@@ -6,14 +6,10 @@
  * Time: 03:11
  */
 
-namespace frontend\models\game;
+namespace frontend\models\game\base;
 
 
-use frontend\models\game\base\CharacterInterface;
-
-interface BeeInterface extends CharacterInterface
+interface BeeInterface extends CharacterInterface, GetPlayerInterface, GetQueenInterface, BeeTypesInterface
 {
     public function getType();
-
-    public function getQeen();
 }

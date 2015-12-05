@@ -18,5 +18,5 @@ $config = yii\helpers\ArrayHelper::merge(
     require(__DIR__ . '/../console/config/main-local.php')
 );
 
-$application = new yii\web\Application($config);
+$application = new yii\console\Application($config);
 Yii::$app = $application;

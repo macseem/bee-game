@@ -9,9 +9,7 @@
 namespace frontend\models\game\base;
 
 
-use frontend\models\game\BeeInterface;
-
 interface DoctorInterface
 {
-    public function heal(BeeInterface $bee);
+    public function heal(BeeInterface $bee, HoneyPoolInterface $pool);
 }

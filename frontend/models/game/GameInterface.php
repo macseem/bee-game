@@ -9,23 +9,16 @@
 namespace frontend\models\game;
 
 
-interface GameInterface
+use frontend\models\game\base\CharacterPoolInterface;
+use frontend\models\game\base\GetPlayerInterface;
+use frontend\models\game\base\SearchBeeInterface;
+
+interface GameInterface extends GameTimeInterface, GameResultInterface, SearchBeeInterface, GetPlayerInterface
 {
-
-    public function init(GameStorageInterface $storage);
-
-    public function isStarted();
-
-    public function start();
+    /**
+     * @return CharacterPoolInterface
+     */
+    public function getCharacterPool();
 
     public function hit();
-
-    public function end();
-
-    public function reset();
-
-    /**
-     * @return PlayerInterface
-     */
-    public function getPlayer();
 }

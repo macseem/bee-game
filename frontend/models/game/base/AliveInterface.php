@@ -14,4 +14,6 @@ interface AliveInterface
     public function getLifespan();
 
     public function setLifepan($value);
+
+    public function toDie();
 }

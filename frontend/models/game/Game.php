@@ -9,37 +9,52 @@
 namespace frontend\models\game;
 
 
+use frontend\models\game\base\BeeInterface;
+use frontend\models\game\base\CharacterPoolInterface;
+use frontend\models\game\characters\PlayerInterface;
+
 class Game implements GameInterface
 {
+    private $pool;
+    private $started;
+    private $finished;
+    private $time;
+    private $result;
 
-    public function init(GameStorageInterface $storage)
+    public function __construct(CharacterPoolInterface $pool)
     {
-        // TODO: Implement init() method.
+        $this->pool = $pool;
     }
 
-    public function isStarted()
-    {
-        // TODO: Implement isStarted() method.
-    }
 
     public function start()
     {
-        // TODO: Implement start() method.
+        $this->started = time();
     }
 
     public function hit()
     {
-        // TODO: Implement hit() method.
+        $bee = $this->searchBee();
+        $player = $this->getPlayer();
+        $player->beforeHit();
+        $bee->beforeTakeHit();
+        $player->hit($bee);
+        $bee->takeHit();
+        $player->afterHit();
+        $bee->afterTakeHit();
     }
 
-    public function end()
+    public function finish()
     {
-        // TODO: Implement end() method.
+        $this->finished = time();
+        $this->time = $this->finished - $this->started;
     }
 
     public function reset()
     {
-        // TODO: Implement reset() method.
+        $this->time = null;
+        $this->started = null;
+        $this->finished = null;
     }
 
     /**
@@ -47,6 +62,61 @@ class Game implements GameInterface
      */
     public function getPlayer()
     {
-        // TODO: Implement getPlayer() method.
+        $this->getCharacterPool()->getPlayer();
+    }
+
+    /**
+     * @return BeeInterface
+     */
+    public function searchBee()
+    {
+        $this->getCharacterPool()->searchBee();
+    }
+
+    public function isStarted()
+    {
+        return !empty($this->started);
+    }
+
+    public function isFinished()
+    {
+        return !empty($this->finished);
+    }
+
+    /**
+     * @return int
+     */
+    public function gameTime()
+    {
+        return $this->time;
+    }
+
+    public function getResult()
+    {
+        if(!$this->isFinished())
+            return false;
+        return $this->result;
+    }
+
+    public function win()
+    {
+        $this->finish();
+        $this->result = self::RESULT_WIN;
+        return $this->result;
+    }
+
+    public function lose()
+    {
+        $this->finish();
+        $this->result = self::RESULT_LOSE;
+        return $this->result;
+    }
+
+    /**
+     * @return CharacterPoolInterface
+     */
+    public function getCharacterPool()
+    {
+        return $this->pool;
     }
 }

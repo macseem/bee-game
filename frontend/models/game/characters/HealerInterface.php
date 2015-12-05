@@ -11,7 +11,7 @@ namespace frontend\models\game\characters;
 
 use frontend\models\game\base\DoctorInterface;
 use frontend\models\game\base\SearchBeeInterface;
-use frontend\models\game\BeeInterface;
+use frontend\models\game\base\BeeInterface;
 
 interface HealerInterface extends BeeInterface, DoctorInterface, SearchBeeInterface
 {
