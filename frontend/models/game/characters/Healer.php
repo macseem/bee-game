@@ -16,13 +16,13 @@ use frontend\models\game\base\HoneyPoolInterface;
 class Healer extends Bee implements HealerInterface
 {
     const HEAL_COST = 5;
+    const HEAL_VALUE = 3;
 
     public function heal(BeeInterface $bee, HoneyPoolInterface $pool)
     {
-        if($pool->amount()<self::HEAL_COST)
+        if(!$pool->takeHoney(self::HEAL_COST))
             return false;
-        $pool->takeHoney(self::HEAL_COST);
-        $bee->setLifespan($bee->getLifespan() + $this->getHealValue());
+        $bee->setLifespan($bee->getLifespan() + self::HEAL_VALUE);
     }
 
     /**
@@ -56,7 +56,7 @@ class Healer extends Bee implements HealerInterface
 
     public function beforeTakeHit()
     {
-        // TODO: Implement beforeTakeHit() method.
+        $this->heal($this->searchBee(), $this->getHoneyPool());
     }
 
     public function afterTakeHit()

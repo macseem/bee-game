@@ -69,7 +69,7 @@ abstract class Bee implements BeeInterface
 
     public function getHoneyPool()
     {
-        return true;
+        return $this->game->getHoneyPool();
     }
 
 }
