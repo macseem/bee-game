@@ -15,10 +15,14 @@ use frontend\models\game\base\HoneyPoolInterface;
 
 class Healer extends Bee implements HealerInterface
 {
+    const HEAL_COST = 5;
 
     public function heal(BeeInterface $bee, HoneyPoolInterface $pool)
     {
-        // TODO: Implement heal() method.
+        if($pool->amount()<self::HEAL_COST)
+            return false;
+        $pool->takeHoney(self::HEAL_COST);
+        $bee->setLifespan($bee->getLifespan() + $this->getHealValue());
     }
 
     /**
@@ -37,5 +41,26 @@ class Healer extends Bee implements HealerInterface
     public function getType()
     {
         return self::BEE_TYPE_HEALER;
+    }
+
+    function getLifespanMax()
+    {
+        return 60;
+    }
+
+
+    function getHitAmount($criticalPercent)
+    {
+        return 11 + 11/100*$criticalPercent;
+    }
+
+    public function beforeTakeHit()
+    {
+        // TODO: Implement beforeTakeHit() method.
+    }
+
+    public function afterTakeHit()
+    {
+        $this->heal($this->searchBee(), $this->getHoneyPool());
     }
 }

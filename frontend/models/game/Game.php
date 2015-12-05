@@ -39,7 +39,7 @@ class Game implements GameInterface
         $player->beforeHit();
         $bee->beforeTakeHit();
         $player->hit($bee);
-        $bee->takeHit();
+        $bee->takeHit(0);
         $player->afterHit();
         $bee->afterTakeHit();
     }
@@ -62,7 +62,7 @@ class Game implements GameInterface
      */
     public function getPlayer()
     {
-        $this->getCharacterPool()->getPlayer();
+        return $this->getCharacterPool()->getPlayer();
     }
 
     /**

@@ -28,4 +28,25 @@ class Queen extends Bee implements QueenInterface
     {
         return self::BEE_TYPE_QUEEN;
     }
+
+    function getLifespanMax()
+    {
+        return 100;
+    }
+
+
+    function getHitAmount($criticalPercent)
+    {
+        return 8 + 8/100*$criticalPercent;
+    }
+
+    public function beforeTakeHit()
+    {
+        // TODO: Implement beforeTakeHit() method.
+    }
+
+    public function afterTakeHit()
+    {
+        // TODO: Implement afterTakeHit() method.
+    }
 }

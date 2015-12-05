@@ -90,7 +90,7 @@ class CharacterPool implements CharacterPoolInterface
         foreach($this->bees as $key => $bee) {
             $bee->beforeDead();
             $bee->toDie();
-            $bee->setLifepan(0);
+            $bee->setLifespan(0);
             unset($bee);
         }
     }

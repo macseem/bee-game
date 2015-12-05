@@ -16,6 +16,16 @@ class Drone extends Bee implements DroneInterface
 {
 
 
+    public function getType()
+    {
+        return self::BEE_TYPE_DRONE;
+    }
+
+    function getLifespanMax()
+    {
+        return 50;
+    }
+
     public function beforeHit()
     {
         // TODO: Implement beforeHit() method.
@@ -23,7 +33,7 @@ class Drone extends Bee implements DroneInterface
 
     public function hit(CharacterInterface $character)
     {
-        // TODO: Implement hit() method.
+        $character->takeHit(0);
     }
 
     public function afterHit()
@@ -31,13 +41,25 @@ class Drone extends Bee implements DroneInterface
         // TODO: Implement afterHit() method.
     }
 
-    public function toDie()
+    function getHitAmount($criticalPercent)
     {
-        // TODO: Implement toDie() method.
+        return 12 + 12/100*$criticalPercent;
     }
 
-    public function getType()
+    public function beforeTakeHit()
     {
-        return self::BEE_TYPE_DRONE;
+        // TODO: Implement beforeTakeHit() method.
+    }
+
+    function afterTakeHit()
+    {
+        $this->beforeHit();
+        $this->hit($this->getPlayer());
+        $this->afterTakeHit();
+    }
+
+    public function toDie()
+    {
+        $this->setLifespan(0);
     }
 }

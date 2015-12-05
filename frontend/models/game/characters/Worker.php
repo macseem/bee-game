@@ -14,19 +14,35 @@ use frontend\models\game\base\HoneyPoolInterface;
 
 class Worker extends Bee implements WorkerInterface
 {
-
-    public function toDie()
-    {
-        // TODO: Implement toDie() method.
-    }
+    const HONEY_AMOUNT = 10;
 
     public function makeHoney(HoneyPoolInterface $honeyPool)
     {
-        // TODO: Implement makeHoney() method.
+        $honeyPool->bringHoney(self::HONEY_AMOUNT);
     }
 
     public function getType()
     {
         return self::BEE_TYPE_WORKER;
+    }
+
+    function getLifespanMax()
+    {
+        return 75;
+    }
+
+    function getHitAmount($criticalPercent)
+    {
+        return 10 + 10/100*$criticalPercent;
+    }
+
+    public function beforeTakeHit()
+    {
+        // TODO: Implement beforeTakeHit() method.
+    }
+
+    public function afterTakeHit()
+    {
+        $this->makeHoney($this->getHoneyPool());
     }
 }

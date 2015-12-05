@@ -9,52 +9,67 @@
 namespace frontend\models\game\base;
 
 
-use frontend\models\game\characters\PlayerInterface;
+
+use frontend\models\game\GameInterface;
 
 abstract class Bee implements BeeInterface
 {
+    /** @var  GameInterface */
+    private $game;
+    private $lifespan;
+
+
+    abstract public function getLifespanMax();
+
+    abstract public function getHitAmount($criticalPercent);
+
+    public function __construct(GameInterface $game)
+    {
+        $this->lifespan = $this->getLifespanMax();
+    }
+
+    public function getPlayer()
+    {
+        return $this->game->getPlayer();
+    }
 
 
     public function getLifespan()
     {
-        // TODO: Implement getLifespan() method.
+        return $this->lifespan;
     }
 
-    public function setLifepan($value)
+    public function setLifespan($value)
     {
-        // TODO: Implement setLifepan() method.
+        if($value < $this->getLifespanMax())
+            return $this->lifespan = $value;
+        return $this->lifespan = $this->getLifespanMax();
     }
 
-    public function getQueen()
+    abstract public function beforeTakeHit();
+
+    public function takeHit($criticalPercent)
     {
-        // TODO: Implement getQueen() method.
+        $this->setLifespan($this->getLifespan() - $this->getHitAmount($criticalPercent));
     }
+
+    abstract public function afterTakeHit();
+
 
     public function beforeDead()
     {
         // TODO: Implement beforeDead() method.
     }
 
-    public function beforeTakeHit()
+
+    public function toDie()
     {
-        // TODO: Implement beforeTakeHit() method.
+        $this->setLifespan(0);
     }
 
-    public function takeHit()
+    public function getHoneyPool()
     {
-        // TODO: Implement takeHit() method.
+        return true;
     }
 
-    public function afterTakeHit()
-    {
-        // TODO: Implement afterTakeHit() method.
-    }
-
-    /**
-     * @return PlayerInterface
-     */
-    public function getPlayer()
-    {
-        // TODO: Implement getPlayer() method.
-    }
 }

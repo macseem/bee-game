@@ -18,15 +18,19 @@ use frontend\models\game\characters\Player;
 use frontend\models\game\characters\PlayerInterface;
 use frontend\models\game\characters\Queen;
 use frontend\models\game\characters\Worker;
+use frontend\models\game\Game;
 
 class CharacterPoolTest extends \PHPUnit_Framework_TestCase
 {
     /** @var  CharacterPool */
     private static $pool;
+    /** @var  Game */
+    private static $game;
 
     public static function setUpBeforeClass()
     {
         self::$pool = new CharacterPool();
+        self::$game = new Game(self::$pool);
     }
 
     public static function tearDownAfterClass()
@@ -44,11 +48,11 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddDrone()
     {
-        self::$pool->addBee(new Drone());
-        self::$pool->addBee(new Drone());
-        self::$pool->addBee(new Drone());
-        self::$pool->addBee(new Drone());
-        self::$pool->addBee(new Drone());
+        self::$pool->addBee(new Drone(self::$game));
+        self::$pool->addBee(new Drone(self::$game));
+        self::$pool->addBee(new Drone(self::$game));
+        self::$pool->addBee(new Drone(self::$game));
+        self::$pool->addBee(new Drone(self::$game));
     }
 
     /**
@@ -56,11 +60,11 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddWorker()
     {
-        self::$pool->addBee(new Worker());
-        self::$pool->addBee(new Worker());
-        self::$pool->addBee(new Worker());
-        self::$pool->addBee(new Worker());
-        self::$pool->addBee(new Worker());
+        self::$pool->addBee(new Worker(self::$game));
+        self::$pool->addBee(new Worker(self::$game));
+        self::$pool->addBee(new Worker(self::$game));
+        self::$pool->addBee(new Worker(self::$game));
+        self::$pool->addBee(new Worker(self::$game));
     }
 
     /**
@@ -68,11 +72,11 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddHealer()
     {
-        self::$pool->addBee(new Healer());
-        self::$pool->addBee(new Healer());
-        self::$pool->addBee(new Healer());
-        self::$pool->addBee(new Healer());
-        self::$pool->addBee(new Healer());
+        self::$pool->addBee(new Healer(self::$game));
+        self::$pool->addBee(new Healer(self::$game));
+        self::$pool->addBee(new Healer(self::$game));
+        self::$pool->addBee(new Healer(self::$game));
+        self::$pool->addBee(new Healer(self::$game));
     }
 
     /**
@@ -80,7 +84,7 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddQueen()
     {
-        self::$pool->addBee(new Queen());
+        self::$pool->addBee(new Queen(self::$game));
     }
 
     /**
@@ -89,7 +93,7 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testAdd2Queens()
     {
-        self::$pool->addBee(new Queen());
+        self::$pool->addBee(new Queen(self::$game));
     }
 
     /**

@@ -11,9 +11,8 @@ namespace frontend\models\game\characters;
 
 use frontend\models\game\base\CharacterInterface;
 use frontend\models\game\base\HitableInterface;
-use frontend\models\game\base\SearchBeeInterface;
 
-interface PlayerInterface extends CharacterInterface, HitableInterface, SearchBeeInterface
+interface PlayerInterface extends CharacterInterface, HitableInterface
 {
 
 }

@@ -15,14 +15,18 @@ use frontend\models\game\BeeInterface;
 class Player implements PlayerInterface
 {
 
+    private $lifespan = 500;
+
     public function getLifespan()
     {
-        // TODO: Implement getLifespan() method.
+        return $this->lifespan;
     }
 
-    public function setLifepan($value)
+    public function setLifespan($value)
     {
-        // TODO: Implement setLifepan() method.
+        if($value < $this->getLifespanMax())
+            return $this->lifespan = $value;
+        return $this->lifespan = $this->getLifespanMax();
     }
 
     public function beforeDead()
@@ -35,9 +39,9 @@ class Player implements PlayerInterface
         // TODO: Implement beforeTakeHit() method.
     }
 
-    public function takeHit()
+    public function takeHit($criticalPercent)
     {
-        // TODO: Implement takeHit() method.
+        $this->setLifespan($this->getLifespan() - $this->getHitAmount($criticalPercent));
     }
 
     public function afterTakeHit()
@@ -52,7 +56,7 @@ class Player implements PlayerInterface
 
     public function hit(CharacterInterface $character)
     {
-        // TODO: Implement hit() method.
+        $character->takeHit(0);
     }
 
     public function afterHit()
@@ -60,16 +64,18 @@ class Player implements PlayerInterface
         // TODO: Implement afterHit() method.
     }
 
-    /**
-     * @return BeeInterface
-     */
-    public function searchBee()
-    {
-        // TODO: Implement searchBee() method.
-    }
-
     public function toDie()
     {
         // TODO: Implement toDie() method.
+    }
+
+    private function getLifespanMax()
+    {
+        return 500;
+    }
+
+    function getHitAmount($criticalPercent)
+    {
+        return 20 + 20/100*$criticalPercent;
     }
 }

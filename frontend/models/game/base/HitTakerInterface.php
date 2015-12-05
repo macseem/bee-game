@@ -12,6 +12,6 @@ namespace frontend\models\game\base;
 interface HitTakerInterface
 {
     public function beforeTakeHit();
-    public function takeHit();
+    public function takeHit($criticalPercent);
     public function afterTakeHit();
 }

@@ -9,7 +9,7 @@
 namespace frontend\models\game\base;
 
 
-interface BeeInterface extends CharacterInterface, GetPlayerInterface, GetQueenInterface, BeeTypesInterface
+interface BeeInterface extends CharacterInterface, GetPlayerInterface, BeeTypesInterface
 {
     public function getType();
 }
