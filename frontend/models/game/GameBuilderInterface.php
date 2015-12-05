@@ -15,4 +15,9 @@ interface GameBuilderInterface
      * @return GameInterface
      */
     public function getGame();
+
+    /**
+     * @return GameInterface
+     */
+    public function buildGame();
 }
