@@ -9,30 +9,30 @@
 namespace frontend\models\game;
 
 
+use yii\web\Session;
+
 class SessionStorage implements GameStorageInterface
 {
+    /** @var  Session */
+    private $session;
+
+    public function __construct(Session $session)
+    {
+        $this->session = $session;
+    }
 
     public function get()
     {
-        return unserialize(\Yii::$app->session->get('game'));
+        if(empty($this->session->get('game')))
+            return false;
+        return unserialize($this->session->get('game'));
     }
 
     /**
      * @param GameInterface $game
-     * @return $gameId
      */
-    public function add(GameInterface $game)
+    public function save(GameInterface $game)
     {
-        // TODO: Implement add() method.
-    }
-
-    public function update($gameId)
-    {
-        // TODO: Implement update() method.
-    }
-
-    public static function createFromGlobals()
-    {
-        // TODO: Implement createFromGlobals() method.
+        $this->session->set('game', serialize($game));
     }
 }

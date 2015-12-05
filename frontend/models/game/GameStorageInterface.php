@@ -11,8 +11,6 @@ namespace frontend\models\game;
 
 interface GameStorageInterface
 {
-    public static function createFromGlobals();
-
     /**
      * @return GameInterface|bool FALSE
      */
@@ -20,10 +18,7 @@ interface GameStorageInterface
 
     /**
      * @param GameInterface $game
-     * @return $gameId
      */
-    public function add( GameInterface $game);
-
-    public function update($gameId);
+    public function save( GameInterface $game);
 
 }
