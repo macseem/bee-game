@@ -6,9 +6,13 @@
  * Time: 02:08
  */
 
-namespace frontend\models\game\base;
+namespace frontend\models\game\pools\interfaces;
 
 
+use frontend\models\game\base\BeeInterface;
+use frontend\models\game\base\GetPlayerInterface;
+use frontend\models\game\base\KillAnyInterface;
+use frontend\models\game\base\SearchBeeInterface;
 use frontend\models\game\characters\interfaces\PlayerInterface;
 
 interface CharacterPoolInterface extends SearchBeeInterface, GetPlayerInterface, KillAnyInterface
