@@ -9,12 +9,10 @@
 namespace tests\characters;
 
 
-use frontend\models\game\base\CharacterPool;
-use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
-use frontend\models\game\characters\Player;
 use frontend\models\game\Game;
 use frontend\models\game\GameBuilder;
+use tests\fixtures\GameWithPlayerAndOneDrone;
 
 class DroneTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,8 +23,7 @@ class DroneTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $builder = new GameBuilder(['drone' => 1]);
-        $this->game = $builder->buildGame();
+        $this->game = GameWithPlayerAndOneDrone::get();
         $this->drone = $this->game->searchBee();
     }
     public function tearDown()

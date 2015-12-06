@@ -11,5 +11,5 @@ namespace frontend\models\game\base;
 
 interface CharacterInterface extends AliveInterface, HitTakerInterface, BeforeDeadInterface
 {
-
+    public function getType();
 }

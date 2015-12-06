@@ -10,20 +10,18 @@ namespace tests\controllers;
 
 
 use frontend\controllers\GameController;
-use frontend\models\game\base\CharacterPool;
-use frontend\models\game\base\HoneyPool;
-use frontend\models\game\characters\Player;
-use frontend\models\game\characters\Worker;
-use frontend\models\game\Game;
 use frontend\models\game\GameBuilder;
 use frontend\models\game\SessionStorage;
+use tests\fixtures\GameWithoutBees;
+use tests\fixtures\GameWithPlayerAnd10Workers;
+use tests\fixtures\GameWithPlayerAndOneWorker;
 use yii\web\Session;
 
 class GameControllerTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetGameLazyLoadFromStorage()
     {
-        $expectedGame = new Game(new CharacterPool(), new HoneyPool());
+        $expectedGame = GameWithoutBees::get();
         /** @var Session | \PHPUnit_Framework_MockObject_MockObject $sessionStub */
         $sessionStub = $this->getMockBuilder(Session::class)->disableOriginalConstructor()->setMethods([
             'get', 'set'
@@ -32,7 +30,7 @@ class GameControllerTest extends \PHPUnit_Framework_TestCase
             ->with('game')->willReturn(serialize($expectedGame));
 
         $storage = new SessionStorage($sessionStub);
-        $builder = new GameBuilder(['worker' => 10]);
+        $builder = GameWithPlayerAnd10Workers::getBuilder();
 
         $method = new \ReflectionMethod(GameController::class, 'getGame');
         $method->setAccessible(true);
@@ -46,8 +44,7 @@ class GameControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetGameBuildWhenStorageEmpty()
     {
-        $builder = new GameBuilder(['worker' => 1]);
-        $expectedGame = $builder->buildGame();
+        $expectedGame = GameWithPlayerAndOneWorker::getGame();
 
         /** @var Session | \PHPUnit_Framework_MockObject_MockObject $sessionStub */
         $sessionStub = $this->getMockBuilder(Session::class)->disableOriginalConstructor()->setMethods([
@@ -61,7 +58,7 @@ class GameControllerTest extends \PHPUnit_Framework_TestCase
         $method->setAccessible(true);
         $actualGame = $method->invokeArgs(
             $this->getMock(GameController::class,[],[],'',false),
-            [$storage, $builder]
+            [$storage, GameWithPlayerAndOneWorker::getBuilder()]
         );
 
         $this->assertEquals(serialize($expectedGame), serialize($actualGame));

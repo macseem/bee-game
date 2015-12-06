@@ -9,13 +9,11 @@
 namespace tests\game\inside;
 
 
-use frontend\models\game\base\CharacterPool;
-use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
-use frontend\models\game\Game;
 use frontend\models\game\GameBuilder;
 use frontend\models\game\GameInterface;
+use tests\fixtures\GameWithoutBees;
 
 class GameHitTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,8 +22,7 @@ class GameHitTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $builder = new GameBuilder([]);
-        $this->game = $builder->buildGame();
+        $this->game = GameWithoutBees::get();
     }
     public function tearDown()
     {

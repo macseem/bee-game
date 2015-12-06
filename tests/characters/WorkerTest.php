@@ -13,6 +13,7 @@ use frontend\models\game\base\CharacterPool;
 use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Worker;
 use frontend\models\game\Game;
+use tests\fixtures\GameWithoutCharacters;
 
 class WorkerTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,8 +22,9 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->game = new Game(new CharacterPool(), new HoneyPool());
+        $this->game = GameWithoutCharacters::get();
         $this->game->getCharacterPool()->addBee(new Worker($this->game));
+
     }
     public function tearDown()
     {

@@ -20,6 +20,7 @@ use frontend\models\game\characters\PlayerInterface;
 
 class Game implements GameInterface
 {
+    private $config;
     private $characterPool;
     private $honeyPool;
     private $started;
@@ -27,10 +28,11 @@ class Game implements GameInterface
     private $time;
     private $result;
 
-    public function __construct(CharacterPoolInterface $pool, HoneyPoolInterface $honeyPool)
+    public function __construct(CharacterPoolInterface $pool, HoneyPoolInterface $honeyPool, array $config)
     {
         $this->characterPool = $pool;
         $this->honeyPool = $honeyPool;
+        $this->config = $config;
     }
 
 
@@ -148,5 +150,13 @@ class Game implements GameInterface
     public function getHoneyPool()
     {
         return $this->honeyPool;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
     }
 }

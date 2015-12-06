@@ -22,4 +22,9 @@ interface GameInterface extends GameTimeInterface, GameResultInterface, SearchBe
     public function getCharacterPool();
 
     public function hit();
+
+    /**
+     * @return array
+     */
+    public function getConfig();
 }

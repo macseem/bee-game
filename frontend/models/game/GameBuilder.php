@@ -20,7 +20,8 @@ use frontend\models\game\characters\Worker;
 
 class GameBuilder implements GameBuilderInterface
 {
-    private $config;
+    private $gameConfig;
+    private $buildConfig;
     private $cache;
     private $classes = [
         BeeTypesInterface::BEE_TYPE_DRONE => Drone::class,
@@ -29,9 +30,10 @@ class GameBuilder implements GameBuilderInterface
         BeeTypesInterface::BEE_TYPE_QUEEN => Queen::class,
     ];
 
-    public function __construct(array $buildConfig, $typeClasses = null)
+    public function __construct(array $buildConfig, array $gameConfig, $typeClasses = null)
     {
-        $this->config = $buildConfig;
+        $this->buildConfig = $buildConfig;
+        $this->gameConfig = $gameConfig;
         if($typeClasses) {
             $this->classes = $typeClasses;
         }
@@ -45,9 +47,9 @@ class GameBuilder implements GameBuilderInterface
         if(!empty($this->cache)){
             return unserialize($this->cache);
         }
-        $game = new Game(new CharacterPool(), new HoneyPool());
+        $game = new Game(new CharacterPool(), new HoneyPool(), $this->gameConfig);
         $this->setPlayer($game);
-        foreach($this->config as $type => $count){
+        foreach($this->buildConfig as $type => $count){
             for($i = 0; $i<$count; $i++){
                 $game->getCharacterPool()->addBee(
                     new $this->classes[$type]($game)

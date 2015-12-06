@@ -14,13 +14,16 @@ use frontend\models\game\GameInterface;
 
 class Player implements PlayerInterface
 {
+
+
     /** @var  GameInterface */
     private $game;
-    private $lifespan = 500;
+    private $lifespan;
 
     public function __construct(GameInterface $game)
     {
         $this->game = $game;
+        $this->lifespan = $this->getLifespanMax();
     }
 
     public function getLifespan()
@@ -52,7 +55,8 @@ class Player implements PlayerInterface
 
     public function afterTakeHit()
     {
-        // TODO: Implement afterTakeHit() method.
+        if($this->getLifespan() <=0 )
+            $this->toDie();
     }
 
     public function beforeHit()
@@ -76,13 +80,18 @@ class Player implements PlayerInterface
         $this->game->finish();
     }
 
-    private function getLifespanMax()
+    public function getLifespanMax()
     {
-        return 500;
+        return $this->game->getConfig()['maxLifespans'][$this->getType()];
     }
 
     function getHitAmount($criticalPercent)
     {
         return 20 + 20/100*$criticalPercent;
+    }
+
+    public function getType()
+    {
+        return self::PLAYER_TYPE;
     }
 }

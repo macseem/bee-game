@@ -21,11 +21,6 @@ class Drone extends Bee implements DroneInterface
         return self::BEE_TYPE_DRONE;
     }
 
-    function getLifespanMax()
-    {
-        return 50;
-    }
-
     public function beforeHit()
     {
         // TODO: Implement beforeHit() method.
@@ -49,7 +44,8 @@ class Drone extends Bee implements DroneInterface
     public function beforeTakeHit()
     {
         $this->beforeHit();
+        $this->getPlayer()->beforeTakeHit();
         $this->hit($this->getPlayer());
-        $this->afterTakeHit();
+        $this->getPlayer()->afterTakeHit();
     }
 }

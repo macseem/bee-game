@@ -39,12 +39,6 @@ class Healer extends Bee implements HealerInterface
         return self::BEE_TYPE_HEALER;
     }
 
-    function getLifespanMax()
-    {
-        return 60;
-    }
-
-
     function getHitAmount($criticalPercent)
     {
         return 11 + 11/100*$criticalPercent;

@@ -33,7 +33,7 @@ class GameController extends Controller
     {
         $this->session = \Yii::$app->session;
         $this->storage = new SessionStorage($this->session);
-        $this->builder = new GameBuilder(\Yii::$app->params['gameConfig']);
+        $this->builder = new GameBuilder(\Yii::$app->params['gameConfig'], \Yii::$app->params);
         $this->game = $this->getGame($this->storage, $this->builder);
     }
 
@@ -64,7 +64,10 @@ class GameController extends Controller
 
     public function actionStart()
     {
-        $this->storage->delete();
+        if($this->game->isFinished())
+            return $this->redirect('/game/finished');
+        if($this->game->isStarted())
+            return $this->redirect('/game/overview');
         $this->game->start();
         if($this->game->isStarted()){
             $this->session->set('started', true);
@@ -75,6 +78,10 @@ class GameController extends Controller
 
     public function actionOverview()
     {
+        if(!$this->game->isStarted())
+            return $this->redirect('/game/index');
+        if($this->game->isFinished())
+            return $this->redirect('/game/finished');
         return $this->render('overview', ['game' => $this->game]);
     }
 
@@ -95,7 +102,6 @@ class GameController extends Controller
     {
         if(!$this->game->isFinished())
             return $this->redirect('/game/overview');
-        $this->session->offsetUnset('started');
         return $this->render('finished', ['game' => $this->game]);
     }
 

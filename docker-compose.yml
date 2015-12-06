@@ -1,5 +1,7 @@
 nginx:
   image: nginx
+  links:
+    - "php"
   ports:
     - "80:80"
   volumes:

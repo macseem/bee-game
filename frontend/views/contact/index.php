@@ -9,11 +9,13 @@ use yii\helpers\Html;
 $this->title = 'Contact';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="jumbotron">
+<div class="container-fuid col-lg-4 pull-left">
+    <img class="img-rounded" width="300px" src="/img/myphoto.png"/>
+</div>
+<div class="jumbotron col-lg-8" style="height:382px">
     <h1>Contact MaCSeeM</h1>
 
-    <div class="container-fluid">
-        <br/>
+    <div class="container-fluid ">
         <div class="row">
             <div class="col-lg-2">
                 <a href="https://facebook.com/MaCSeeM"><img src="/img/facebook.png"/></a>

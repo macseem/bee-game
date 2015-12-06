@@ -9,13 +9,13 @@
 namespace tests\characters;
 
 
-use frontend\models\game\base\BeeInterface;
 use frontend\models\game\base\CharacterPool;
 use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
 use frontend\models\game\Game;
-use frontend\models\game\GameBuilder;
+use tests\fixtures\GameWithoutBees;
+use tests\fixtures\GameWithoutCharacters;
 
 class PlayerTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,8 +25,7 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $builder = new GameBuilder([]);
-        $this->game = $builder->buildGame();
+        $this->game = GameWithoutBees::get();
         $this->player = $this->game->getPlayer();
     }
     public function tearDown()
@@ -54,7 +53,7 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
 
     public function testHit()
     {
-        $game = new Game(new CharacterPool(), new HoneyPool());
+        $game = GameWithoutCharacters::get();
         $bee = new Drone($game);
         $game->getCharacterPool()->addBee($bee);
         $firstLifespan = $bee->getLifespan();

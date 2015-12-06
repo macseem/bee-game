@@ -20,15 +20,18 @@ abstract class Bee implements BeeInterface
     private $lifespan;
     private $id;
 
-    abstract public function getLifespanMax();
-
     abstract public function getHitAmount($criticalPercent);
 
     final public function __construct(GameInterface $game)
     {
-        $this->lifespan = $this->getLifespanMax();
         $this->game = $game;
+        $this->lifespan = $this->getLifespanMax();
         $this->init();
+    }
+
+    public function getLifespanMax()
+    {
+        return $this->game->getConfig()['maxLifespans'][$this->getType()];
     }
 
     public function setId($id)
@@ -88,6 +91,7 @@ abstract class Bee implements BeeInterface
 
     final public function toDie()
     {
+        $this->beforeDead();
         $this->game->getCharacterPool()->kill($this->id);
         $this->game->finish();
     }

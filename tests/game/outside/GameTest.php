@@ -12,10 +12,11 @@ namespace tests\game\outside;
 use frontend\models\game\base\CharacterPool;
 use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
-use frontend\models\game\characters\Player;
 use frontend\models\game\Game;
-use frontend\models\game\GameBuilder;
 use frontend\models\game\GameResultInterface;
+use tests\fixtures\GameWithoutBees;
+use tests\fixtures\GameWithoutCharacters;
+use tests\fixtures\GameWithPlayerAndOneWorker;
 
 class GameTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,8 +25,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $builder = new GameBuilder([]);
-        $this->game = $builder->buildGame();
+        $this->game = GameWithoutBees::get();
     }
 
     public function tearDown()
@@ -53,13 +53,11 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
     public function isStartedProvider()
     {
-        $builder = new GameBuilder([]);
-        $startedGame = $builder->buildGame();
-        $startedGame->getCharacterPool()->addBee(new Drone($startedGame));
+        $startedGame = GameWithPlayerAndOneWorker::getGame();
         $startedGame->start();
         return [
             [ $startedGame, true ],
-            [ new Game(new CharacterPool(), new HoneyPool()), false ]
+            [ GameWithoutCharacters::get(), false ]
         ];
     }
 
@@ -85,7 +83,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
      */
     public function testStartGameWithEmptyPlayer()
     {
-        $game = new Game(new CharacterPool(), new HoneyPool());
+        $game = GameWithoutCharacters::get();
         $game->start();
     }
 

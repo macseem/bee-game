@@ -21,7 +21,7 @@ class GameBuilderTest extends \PHPUnit_Framework_TestCase
         foreach(BeeTypesInterface::BEE_AVAILABLE_TYPES as $type){
             $config[$type] = 1;
         }
-        $builder = new GameBuilder($config);
+        $builder = new GameBuilder($config, \Yii::$app->params);
         $game = $builder->buildGame();
         $this->assertInstanceOf(Player::class, $game->getPlayer());
         $this->assertEquals(count(BeeTypesInterface::BEE_AVAILABLE_TYPES), count($game->getCharacterPool()->getBees()));

@@ -26,11 +26,6 @@ class Worker extends Bee implements WorkerInterface
         return self::BEE_TYPE_WORKER;
     }
 
-    function getLifespanMax()
-    {
-        return 75;
-    }
-
     function getHitAmount($criticalPercent)
     {
         return 10 + 10/100*$criticalPercent;

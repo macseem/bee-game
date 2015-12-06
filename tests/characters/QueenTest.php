@@ -14,6 +14,7 @@ use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Queen;
 use frontend\models\game\characters\Worker;
 use frontend\models\game\Game;
+use tests\fixtures\GameWithoutCharacters;
 
 class QueenTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +24,7 @@ class QueenTest extends \PHPUnit_Framework_TestCase
     private $queen;
     public function setUp()
     {
-        $this->game = new Game(new CharacterPool(), new HoneyPool());
+        $this->game = GameWithoutCharacters::get();
         $this->game->getCharacterPool()->addBee(new Worker($this->game));
         $this->queen = new Queen($this->game);
         $this->game->getCharacterPool()->addBee($this->queen);

@@ -11,6 +11,8 @@ namespace frontend\models\game\base;
 
 interface AliveInterface
 {
+    public function getLifespanMax();
+
     public function getLifespan();
 
     public function setLifespan($value);

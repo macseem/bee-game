@@ -19,6 +19,7 @@ use frontend\models\game\characters\PlayerInterface;
 use frontend\models\game\characters\Queen;
 use frontend\models\game\characters\Worker;
 use frontend\models\game\Game;
+use tests\fixtures\GameWithoutCharacters;
 
 class CharacterPoolTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,8 +30,8 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        self::$pool = new CharacterPool();
-        self::$game = new Game(self::$pool, new HoneyPool());
+        self::$game = GameWithoutCharacters::get();
+        self::$pool = self::$game->getCharacterPool();
     }
 
     public static function tearDownAfterClass()

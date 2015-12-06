@@ -9,13 +9,11 @@
 namespace tests\game\outside;
 
 
-use frontend\models\game\base\CharacterPool;
-use frontend\models\game\base\HoneyPool;
-use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
 use frontend\models\game\Game;
 use frontend\models\game\GameBuilder;
 use frontend\models\game\SessionStorage;
+use tests\fixtures\GameWith4Drones;
 use yii\web\Session;
 
 class SessionStorageTest extends \PHPUnit_Framework_TestCase
@@ -29,8 +27,7 @@ class SessionStorageTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $builder = new GameBuilder(['drone' => 4]);
-        $this->game = $builder->buildGame();
+        $this->game = GameWith4Drones::get();
 
         /** @var Session | \PHPUnit_Framework_MockObject_MockObject $sessionStub */
         $this->sessionStub = $this->getMockBuilder(Session::class)->disableOriginalConstructor()->setMethods([

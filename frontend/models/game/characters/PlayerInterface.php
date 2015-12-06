@@ -14,5 +14,5 @@ use frontend\models\game\base\HitableInterface;
 
 interface PlayerInterface extends CharacterInterface, HitableInterface
 {
-
+    const PLAYER_TYPE = 'player';
 }

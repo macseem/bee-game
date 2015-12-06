@@ -13,6 +13,4 @@ interface BeeInterface extends CharacterInterface, GetPlayerInterface, BeeTypesI
 {
     public function setId($id);
     public function getId();
-
-    public function getType();
 }

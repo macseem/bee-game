@@ -21,7 +21,7 @@ class HealerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->game = new Game(new CharacterPool(), new HoneyPool());
+        $this->game = new Game(new CharacterPool(), new HoneyPool(), \Yii::$app->params);
         $this->game->getCharacterPool()->addBee(new Healer($this->game));
         $this->game->getHoneyPool()->bringHoney(10000);
     }

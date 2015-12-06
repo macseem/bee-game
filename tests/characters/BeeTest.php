@@ -10,7 +10,6 @@ namespace tests\characters;
 
 
 use frontend\models\game\base\Bee;
-use frontend\models\game\characters\Player;
 use frontend\models\game\GameBuilder;
 use frontend\models\game\GameInterface;
 use frontend\models\game\GameResultInterface;
@@ -39,7 +38,7 @@ class BeeTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $builder = new GameBuilder([]);
+        $builder = new GameBuilder([], \Yii::$app->params);
         $this->game = $builder->buildGame();
     }
     public function tearDown()
