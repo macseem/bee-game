@@ -13,6 +13,8 @@ You have 300 health.
 - If you are killed by the bees - you are a loser. 
 - If the last bee kills you before its death then the result is draw.
 
+Use cases diagram [here](https://drive.google.com/file/d/0B-X-YPz9DPQMRUc0WmJSV3F5elE/view?usp=sharing)
+
 Installation
 -------------------
 
