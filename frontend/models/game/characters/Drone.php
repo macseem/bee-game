@@ -36,16 +36,13 @@ class Drone extends Bee implements DroneInterface
         // TODO: Implement afterHit() method.
     }
 
-    function getHitAmount($criticalPercent)
-    {
-        return 12 + 12/100*$criticalPercent;
-    }
-
     public function beforeTakeHit()
     {
         $this->beforeHit();
         $this->getPlayer()->beforeTakeHit();
         $this->hit($this->getPlayer());
         $this->getPlayer()->afterTakeHit();
+        $this->afterHit();
+        return parent::beforeTakeHit();
     }
 }

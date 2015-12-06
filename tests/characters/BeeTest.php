@@ -26,8 +26,6 @@ class BeeChild extends Bee{
         return $criticalPercent;
     }
 
-    public function beforeTakeHit(){}
-
     public function getType(){}
 }
 

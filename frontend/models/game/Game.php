@@ -95,11 +95,9 @@ class Game implements GameInterface
         $this->time = $this->finished - $this->started;
         if(empty($this->getCharacterPool()->getPlayer()) && empty($this->getCharacterPool()->getBees()))
             return $this->setDrawResult();
-        if(empty($this->getCharacterPool()->getBees()))
-            return $this->setWinResult();
         if(empty($this->getCharacterPool()->getPlayer()))
             return $this->setLoseResult();
-        throw new ImpossibleCaseException("This case is impossible. Please pay attention", 550);
+        return $this->setWinResult();
     }
 
     public function isFinished()

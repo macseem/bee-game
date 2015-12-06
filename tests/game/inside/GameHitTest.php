@@ -11,7 +11,6 @@ namespace tests\game\inside;
 
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
-use frontend\models\game\GameBuilder;
 use frontend\models\game\GameInterface;
 use tests\fixtures\GameWithoutBees;
 

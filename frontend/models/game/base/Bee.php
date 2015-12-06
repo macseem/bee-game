@@ -20,7 +20,11 @@ abstract class Bee implements BeeInterface
     private $lifespan;
     private $id;
 
-    abstract public function getHitAmount($criticalPercent);
+    public function getHitAmount($criticalPercent)
+    {
+        $amount = $this->game->getConfig()['hitAmounts'][$this->getType()];
+        return  $amount + $amount/100*$criticalPercent;
+    }
 
     final public function __construct(GameInterface $game)
     {
@@ -69,7 +73,10 @@ abstract class Bee implements BeeInterface
         return $this->lifespan = $this->getLifespanMax();
     }
 
-    abstract public function beforeTakeHit();
+    public function beforeTakeHit()
+    {
+        return true;
+    }
 
     public function takeHit($criticalPercent)
     {

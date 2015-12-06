@@ -39,4 +39,15 @@ class QueenTest extends \PHPUnit_Framework_TestCase
         $this->queen->killAllBees();
         $this->assertCount(0, $this->game->getCharacterPool()->getBees());
     }
+
+    public function testKillAllCallingInToDieMethod()
+    {
+        $game = GameWithoutCharacters::get();
+        /** @var Queen | \PHPUnit_Framework_MockObject_MockObject $stub */
+        $stub = $this->getMockBuilder(Queen::class)->enableOriginalConstructor()
+            ->setConstructorArgs([$game])
+            ->setMethods(['killAllBees'])->getMock();
+        $stub->expects($this->once())->method('killAllBees')->willReturn(true);
+        $stub->toDie();
+    }
 }

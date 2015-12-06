@@ -22,6 +22,13 @@ return [
             BeeTypesInterface::BEE_TYPE_HEALER => 100,
             BeeTypesInterface::BEE_TYPE_WORKER => 60,
             BeeTypesInterface::BEE_TYPE_DRONE  => 50,
+        ],
+        'hitAmounts' => [
+            PlayerInterface::PLAYER_TYPE => 20,
+            BeeTypesInterface::BEE_TYPE_QUEEN  => 8,
+            BeeTypesInterface::BEE_TYPE_HEALER => 10,
+            BeeTypesInterface::BEE_TYPE_WORKER => 12,
+            BeeTypesInterface::BEE_TYPE_DRONE  => 5,
         ]
     ]
 ];

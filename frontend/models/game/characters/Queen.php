@@ -19,20 +19,10 @@ class Queen extends Bee implements QueenInterface
         return self::BEE_TYPE_QUEEN;
     }
 
-    function getHitAmount($criticalPercent)
-    {
-        return 8 + 8/100*$criticalPercent;
-    }
-
 
     public function killAllBees()
     {
         $this->getCharacterPool()->killAllBees();
-    }
-
-    public function beforeTakeHit()
-    {
-        // TODO: Implement beforeTakeHit() method.
     }
 
     public function beforeDead()

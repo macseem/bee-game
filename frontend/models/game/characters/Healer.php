@@ -39,14 +39,10 @@ class Healer extends Bee implements HealerInterface
         return self::BEE_TYPE_HEALER;
     }
 
-    function getHitAmount($criticalPercent)
-    {
-        return 11 + 11/100*$criticalPercent;
-    }
-
     public function beforeTakeHit()
     {
         $this->heal($this->searchBee(), $this->getHoneyPool());
+        return parent::beforeTakeHit();
     }
 
 

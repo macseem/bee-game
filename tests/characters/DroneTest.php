@@ -11,7 +11,6 @@ namespace tests\characters;
 
 use frontend\models\game\characters\Drone;
 use frontend\models\game\Game;
-use frontend\models\game\GameBuilder;
 use tests\fixtures\GameWithPlayerAndOneDrone;
 
 class DroneTest extends \PHPUnit_Framework_TestCase

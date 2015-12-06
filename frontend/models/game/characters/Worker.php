@@ -26,13 +26,9 @@ class Worker extends Bee implements WorkerInterface
         return self::BEE_TYPE_WORKER;
     }
 
-    function getHitAmount($criticalPercent)
-    {
-        return 10 + 10/100*$criticalPercent;
-    }
-
     public function beforeTakeHit()
     {
         $this->makeHoney($this->getHoneyPool());
+        return parent::beforeTakeHit();
     }
 }

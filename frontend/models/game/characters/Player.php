@@ -76,6 +76,7 @@ class Player implements PlayerInterface
 
     public function toDie()
     {
+        $this->beforeDead();
         $this->game->getCharacterPool()->killPlayer();
         $this->game->finish();
     }
@@ -85,9 +86,10 @@ class Player implements PlayerInterface
         return $this->game->getConfig()['maxLifespans'][$this->getType()];
     }
 
-    function getHitAmount($criticalPercent)
+    public function getHitAmount($criticalPercent)
     {
-        return 20 + 20/100*$criticalPercent;
+        $amount = $this->game->getConfig()['hitAmounts'][$this->getType()];
+        return  $amount + $amount/100*$criticalPercent;
     }
 
     public function getType()

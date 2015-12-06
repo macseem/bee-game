@@ -31,7 +31,7 @@ class SessionStorageTest extends \PHPUnit_Framework_TestCase
 
         /** @var Session | \PHPUnit_Framework_MockObject_MockObject $sessionStub */
         $this->sessionStub = $this->getMockBuilder(Session::class)->disableOriginalConstructor()->setMethods([
-            'get', 'set'
+            'get', 'set', 'offsetUnset'
         ])->getMock();
         $this->storage = new SessionStorage($this->sessionStub);
     }
@@ -58,5 +58,17 @@ class SessionStorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->save($this->game);
     }
 
+    public function testDeleteWhenSessionIsFull()
+    {
+        $this->sessionStub->expects($this->once())->method('get')->willReturn(true);
+        $this->sessionStub->expects($this->once())->method('offsetUnset')->willReturn(true);
+        $this->storage->delete();
+    }
 
+    public function testDeleteWhenSessionIsEmpty()
+    {
+        $this->sessionStub->expects($this->once())->method('get')->willReturn(null);
+        $this->sessionStub->expects($this->never())->method('offsetUnset')->willReturn(true);
+        $this->storage->delete();
+    }
 }
