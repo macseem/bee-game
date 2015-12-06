@@ -24,5 +24,4 @@ interface GameTimeInterface
      */
     public function gameTime();
 
-    public function reset();
 }

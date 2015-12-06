@@ -12,4 +12,6 @@ namespace frontend\models\game\base;
 interface KillAnyInterface extends KillAllInterface
 {
     public function kill($id);
+
+    public function killPlayer();
 }

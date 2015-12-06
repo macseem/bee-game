@@ -14,19 +14,18 @@ use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
 use frontend\models\game\Game;
+use frontend\models\game\GameBuilder;
 use frontend\models\game\GameResultInterface;
 
 class GameTest extends \PHPUnit_Framework_TestCase
 {
     /** @var  Game */
     private $game;
-    /** @var  CharacterPool */
-    private $pool;
-    
+
     public function setUp()
     {
-        $this->pool = new CharacterPool();
-        $this->game = new Game($this->pool, new HoneyPool());
+        $builder = new GameBuilder([]);
+        $this->game = $builder->buildGame();
     }
 
     public function tearDown()
@@ -39,20 +38,6 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $property = $reflection->getProperty($property);
         $property->setAccessible(true);
         return $property->getValue($object);
-    }
-    private function setReflectionProperty(\ReflectionClass $reflection, $object, $property, $value)
-    {
-        $property = $reflection->getProperty($property);
-        $property->setAccessible(true);
-        $property->setValue($object, $value);
-        return $object;
-    }
-
-    private function getMethodStub($class, $method, $willReturn)
-    {
-        $stubStorage = $this->getMockBuilder($class)->disableOriginalConstructor()->getMock();
-        $stubStorage->method($method)->willReturn($willReturn);
-        return $stubStorage;
     }
 
     /**
@@ -68,7 +53,9 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
     public function isStartedProvider()
     {
-        $startedGame = new Game(new CharacterPool(), new HoneyPool());
+        $builder = new GameBuilder([]);
+        $startedGame = $builder->buildGame();
+        $startedGame->getCharacterPool()->addBee(new Drone($startedGame));
         $startedGame->start();
         return [
             [ $startedGame, true ],
@@ -78,16 +65,36 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
     public function testStart()
     {
+        $this->game->getCharacterPool()->addBee(new Drone($this->game));
         $this->game->start();
         $this->assertTrue($this->game->isStarted());
     }
 
+    /**
+     * @expectedException \frontend\exceptions\AlreadyStartedGameException
+     */
+    public function testStartAlreadyStartedGame()
+    {
+        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $this->game->start();
+        $this->game->start();
+    }
 
-    public function testReset()
+    /**
+     * @expectedException \frontend\exceptions\CannotStartWithoutCharacterException
+     */
+    public function testStartGameWithEmptyPlayer()
+    {
+        $game = new Game(new CharacterPool(), new HoneyPool());
+        $game->start();
+    }
+
+    /**
+     * @expectedException \frontend\exceptions\CannotStartWithoutCharacterException
+     */
+    public function testStartGameWithEmptyBees()
     {
         $this->game->start();
-        $this->game->reset();
-        $this->assertFalse($this->game->isStarted());
     }
 
     /**
@@ -96,7 +103,9 @@ class GameTest extends \PHPUnit_Framework_TestCase
     public function testGameTime()
     {
         $reflection = new \ReflectionClass(Game::class);
+        $this->game->getCharacterPool()->addBee(new Drone($this->game));
         $this->game->start();
+        $this->game->getCharacterPool()->killAllBees();
         $this->game->finish();
 
         $started = $this->getReflectionPropertyVal($reflection, $this->game, 'started');
@@ -114,21 +123,24 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
     public function testFinishStartedNotEmptyGameReturnFalse()
     {
-        $this->game->getCharacterPool()->setPlayer(new Player());
         $this->game->getCharacterPool()->addBee(new Drone($this->game));
         $this->assertFalse($this->game->finish());
     }
 
     public function testFinishStartedEmptyGameReturnDraw()
     {
+        $this->game->getCharacterPool()->addBee(new Drone($this->game));
         $this->game->start();
+        $this->game->getCharacterPool()->killAllBees();
+        $this->game->getCharacterPool()->killPlayer();
         $this->assertEquals(GameResultInterface::RESULT_DRAW, $this->game->finish());
     }
 
     public function testFinishStartedGameWithPlayerAndEmptyBeesReturnWin()
     {
-        $this->game->getCharacterPool()->setPlayer(new Player());
+        $this->game->getCharacterPool()->addBee(new Drone($this->game));
         $this->game->start();
+        $this->game->getCharacterPool()->killAllBees();
         $this->assertEquals(GameResultInterface::RESULT_WIN, $this->game->finish());
     }
 
@@ -136,6 +148,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
     {
         $this->game->getCharacterPool()->addBee(new Drone($this->game));
         $this->game->start();
+        $this->game->getPlayer()->toDie();
         $this->assertEquals(GameResultInterface::RESULT_LOSE, $this->game->finish());
     }
 

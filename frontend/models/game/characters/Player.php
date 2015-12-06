@@ -10,11 +10,18 @@ namespace frontend\models\game\characters;
 
 
 use frontend\models\game\base\CharacterInterface;
+use frontend\models\game\GameInterface;
 
 class Player implements PlayerInterface
 {
-
+    /** @var  GameInterface */
+    private $game;
     private $lifespan = 500;
+
+    public function __construct(GameInterface $game)
+    {
+        $this->game = $game;
+    }
 
     public function getLifespan()
     {
@@ -65,7 +72,8 @@ class Player implements PlayerInterface
 
     public function toDie()
     {
-        // TODO: Implement toDie() method.
+        $this->game->getCharacterPool()->killPlayer();
+        $this->game->finish();
     }
 
     private function getLifespanMax()

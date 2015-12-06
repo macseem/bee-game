@@ -40,7 +40,7 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
 
     public function testAddPlayer()
     {
-        self::$pool->setPlayer(new Player());
+        self::$pool->setPlayer(new Player(self::$game));
     }
 
     /**
@@ -127,7 +127,7 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
     public function testKillAll()
     {
         $expectedCount = count(self::$pool->getBees());
-        self::$pool->killAll();
+        self::$pool->killAllBees();
         $actualCount = count(self::$pool->getBees());
         $this->assertLessThan($expectedCount, $actualCount);
         $this->assertEquals(0, $actualCount);

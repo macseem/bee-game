@@ -10,10 +10,9 @@ namespace tests\characters;
 
 
 use frontend\models\game\base\Bee;
-use frontend\models\game\base\CharacterPool;
-use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Player;
-use frontend\models\game\Game;
+use frontend\models\game\GameBuilder;
+use frontend\models\game\GameInterface;
 use frontend\models\game\GameResultInterface;
 
 class BeeChild extends Bee{
@@ -35,12 +34,13 @@ class BeeChild extends Bee{
 
 class BeeTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var  Game */
+    /** @var  GameInterface */
     private $game;
 
     public function setUp()
     {
-        $this->game = new Game(new CharacterPool(), new HoneyPool());
+        $builder = new GameBuilder([]);
+        $this->game = $builder->buildGame();
     }
     public function tearDown()
     {
@@ -70,9 +70,8 @@ class BeeTest extends \PHPUnit_Framework_TestCase
 
     public function testToDieWith1BeeInPoolReturnWin()
     {
-        $this->game->start();
-        $this->game->getCharacterPool()->setPlayer(new Player());
         $this->game->getCharacterPool()->addBee(new BeeChild($this->game));
+        $this->game->start();
         $this->game->getCharacterPool()->searchBee()->toDie();
         $this->assertTrue($this->game->isFinished());
         $this->assertEquals(GameResultInterface::RESULT_WIN, $this->game->getResult());
@@ -83,10 +82,9 @@ class BeeTest extends \PHPUnit_Framework_TestCase
      */
     public function testToDieWith2BeesInPoolReturnNotFinishedAndCountBeesInPoolEqualsOne()
     {
+        $this->game->getCharacterPool()->addBee(new BeeChild($this->game));
+        $this->game->getCharacterPool()->addBee(new BeeChild($this->game));
         $this->game->start();
-        $this->game->getCharacterPool()->setPlayer(new Player());
-        $this->game->getCharacterPool()->addBee(new BeeChild($this->game));
-        $this->game->getCharacterPool()->addBee(new BeeChild($this->game));
         $this->game->getCharacterPool()->searchBee()->toDie();
 
         $this->assertFalse($this->game->isFinished());

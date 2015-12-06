@@ -9,7 +9,7 @@
 namespace frontend\exceptions;
 
 
-class FullPoolByTypeException extends \Exception
+class FullPoolByTypeException extends GameException
 {
 
 }

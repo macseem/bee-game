@@ -86,10 +86,11 @@ class CharacterPool implements CharacterPoolInterface
         if(is_callable($this->randomCallable))
             $number = call_user_func_array($this->randomCallable, [0,$max]);
         else $number = rand(0, $max);
-        return $this->bees[$number];
+        $keys = array_keys($this->bees);
+        return $this->bees[$keys[$number]];
     }
 
-    public function killAll()
+    public function killAllBees()
     {
         $this->bees=[];
     }
@@ -99,5 +100,10 @@ class CharacterPool implements CharacterPoolInterface
         if(!isset($this->bees[$id]))
             return false;
         unset($this->bees[$id]);
+    }
+
+    public function killPlayer()
+    {
+        unset($this->player);
     }
 }

@@ -11,5 +11,5 @@ namespace frontend\models\game\base;
 
 interface KillAllInterface
 {
-    public function killAll();
+    public function killAllBees();
 }

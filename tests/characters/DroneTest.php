@@ -14,6 +14,7 @@ use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
 use frontend\models\game\Game;
+use frontend\models\game\GameBuilder;
 
 class DroneTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,9 +25,9 @@ class DroneTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->game = new Game(new CharacterPool(), new HoneyPool());
-        $this->drone = new Drone($this->game);
-        $this->game->getCharacterPool()->addBee($this->drone);
+        $builder = new GameBuilder(['drone' => 1]);
+        $this->game = $builder->buildGame();
+        $this->drone = $this->game->searchBee();
     }
     public function tearDown()
     {
@@ -53,10 +54,9 @@ class DroneTest extends \PHPUnit_Framework_TestCase
 
     public function testHit()
     {
-        $player = new Player();
-        $firstLifespan = $player->getLifespan();
-        $this->drone->hit($player);
-        $secondLifespan = $player->getLifespan();
+        $firstLifespan = $this->game->getPlayer()->getLifespan();
+        $this->drone->hit($this->game->getPlayer());
+        $secondLifespan = $this->game->getPlayer()->getLifespan();
         $this->assertLessThan($firstLifespan, $secondLifespan);
     }
 

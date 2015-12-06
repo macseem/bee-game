@@ -30,9 +30,9 @@ class Queen extends Bee implements QueenInterface
     }
 
 
-    public function killAll()
+    public function killAllBees()
     {
-        $this->getCharacterPool()->killAll();
+        $this->getCharacterPool()->killAllBees();
     }
 
     public function beforeTakeHit()

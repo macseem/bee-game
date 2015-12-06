@@ -35,7 +35,7 @@ class QueenTest extends \PHPUnit_Framework_TestCase
 
     public function testKillAll()
     {
-        $this->queen->killAll();
+        $this->queen->killAllBees();
         $this->assertCount(0, $this->game->getCharacterPool()->getBees());
     }
 }

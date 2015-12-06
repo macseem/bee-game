@@ -14,6 +14,7 @@ use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
 use frontend\models\game\Game;
+use frontend\models\game\GameBuilder;
 use frontend\models\game\SessionStorage;
 use yii\web\Session;
 
@@ -28,12 +29,8 @@ class SessionStorageTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->game = new Game(new CharacterPool(), new HoneyPool());
-        $this->game->getCharacterPool()->setPlayer(new Player());
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $builder = new GameBuilder(['drone' => 4]);
+        $this->game = $builder->buildGame();
 
         /** @var Session | \PHPUnit_Framework_MockObject_MockObject $sessionStub */
         $this->sessionStub = $this->getMockBuilder(Session::class)->disableOriginalConstructor()->setMethods([
@@ -59,7 +56,7 @@ class SessionStorageTest extends \PHPUnit_Framework_TestCase
      */
     public function testSave()
     {
-        $this->game->getCharacterPool()->killAll();
+        $this->game->getCharacterPool()->killAllBees();
         $this->sessionStub->expects($this->once())->method('set')->with('game', serialize($this->game))->willReturn(true);
         $this->storage->save($this->game);
     }

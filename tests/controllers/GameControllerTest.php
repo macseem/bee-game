@@ -46,9 +46,8 @@ class GameControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetGameBuildWhenStorageEmpty()
     {
-        $expectedGame = new Game(new CharacterPool(), new HoneyPool());
-        $expectedGame->getCharacterPool()->setPlayer(new Player);
-        $expectedGame->getCharacterPool()->addBee(new Worker($expectedGame));
+        $builder = new GameBuilder(['worker' => 1]);
+        $expectedGame = $builder->buildGame();
 
         /** @var Session | \PHPUnit_Framework_MockObject_MockObject $sessionStub */
         $sessionStub = $this->getMockBuilder(Session::class)->disableOriginalConstructor()->setMethods([
@@ -57,7 +56,6 @@ class GameControllerTest extends \PHPUnit_Framework_TestCase
         $sessionStub->expects($this->exactly(1))->method('get')->with('game')->willReturn(false);
 
         $storage = new SessionStorage($sessionStub);
-        $builder = new GameBuilder(['worker' => 1]);
 
         $method = new \ReflectionMethod(GameController::class, 'getGame');
         $method->setAccessible(true);

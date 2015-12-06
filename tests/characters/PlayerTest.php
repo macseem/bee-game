@@ -15,19 +15,23 @@ use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
 use frontend\models\game\Game;
+use frontend\models\game\GameBuilder;
 
 class PlayerTest extends \PHPUnit_Framework_TestCase
 {
     /** @var  Player */
     private $player;
+    private $game;
 
     public function setUp()
     {
-        $this->player = new Player();
+        $builder = new GameBuilder([]);
+        $this->game = $builder->buildGame();
+        $this->player = $this->game->getPlayer();
     }
     public function tearDown()
     {
-        unset($this->player);
+        unset($this->player, $this->game);
     }
 
     public function testGetLifespan()

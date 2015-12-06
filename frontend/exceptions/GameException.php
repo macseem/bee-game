@@ -2,14 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: maksim.d
- * Date: 12/5/15
- * Time: 07:06
+ * Date: 12/6/15
+ * Time: 02:35
  */
 
 namespace frontend\exceptions;
 
 
-class ReadOnlyException extends GameException
+class GameException extends \Exception
 {
 
 }

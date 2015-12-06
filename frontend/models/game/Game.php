@@ -9,6 +9,10 @@
 namespace frontend\models\game;
 
 
+use frontend\exceptions\AlreadyStartedGameException;
+use frontend\exceptions\CannotStartWithoutCharacterException;
+use frontend\exceptions\FinishedGameException;
+use frontend\exceptions\NotStartedGameException;
 use frontend\models\game\base\BeeInterface;
 use frontend\models\game\base\CharacterPoolInterface;
 use frontend\models\game\base\HoneyPoolInterface;
@@ -32,6 +36,10 @@ class Game implements GameInterface
 
     public function hit()
     {
+        if(!$this->isStarted())
+            throw new NotStartedGameException("You should start game first", 550);
+        if($this->isFinished())
+            throw new FinishedGameException("You've already finish. Restart game for hitting", 550);
         $bee = $this->searchBee();
         $player = $this->getPlayer();
 
@@ -43,13 +51,6 @@ class Game implements GameInterface
 
         $player->afterHit();
         $bee->afterTakeHit();
-    }
-
-    public function reset()
-    {
-        $this->time = null;
-        $this->started = null;
-        $this->finished = null;
     }
 
     /**
@@ -70,6 +71,10 @@ class Game implements GameInterface
 
     public function start()
     {
+        if($this->isStarted())
+            throw new AlreadyStartedGameException("This game has been already started.", 550);
+        if(empty($this->getPlayer()) || empty($this->getCharacterPool()->getBees()))
+            throw new CannotStartWithoutCharacterException("Some characters weren't provided by Builder", 550);
         $this->started = time();
     }
 

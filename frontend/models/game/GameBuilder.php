@@ -60,7 +60,7 @@ class GameBuilder implements GameBuilderInterface
 
     private function setPlayer(GameInterface $game)
     {
-        $game->getCharacterPool()->setPlayer(new Player());
+        $game->getCharacterPool()->setPlayer(new Player($game));
     }
 
 }

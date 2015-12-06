@@ -21,9 +21,21 @@ class GameController extends Controller
     /** @var  GameStorageInterface */
     private $storage;
 
-    public function beforeAction($action)
+    public function init()
     {
         $this->storage = new SessionStorage(\Yii::$app->session);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
     }
 
     public function actionIndex()
@@ -32,8 +44,9 @@ class GameController extends Controller
             $this->storage,
             new GameBuilder(\Yii::$app->params['gameConfig'])
         );
-
-        return $this->render('index', $params);
+        $game->hit();
+        $this->storage->save($game);
+        return $this->render('index', ['game' => $game]);
     }
 
     private function getGame(GameStorageInterface $storage, GameBuilderInterface $builder)
