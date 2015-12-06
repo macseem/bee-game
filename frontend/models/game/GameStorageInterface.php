@@ -21,4 +21,9 @@ interface GameStorageInterface
      */
     public function save( GameInterface $game);
 
+    /**
+     * @return mixed
+     */
+    public function delete();
+
 }

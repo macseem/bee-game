@@ -35,4 +35,11 @@ class SessionStorage implements GameStorageInterface
     {
         $this->session->set('game', serialize($game));
     }
+
+    public function delete()
+    {
+        if(empty($this->session->get('game')))
+            return false;
+        $this->session->offsetUnset('game');
+    }
 }
