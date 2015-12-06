@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /var/www/html/frontend/models/game/base</title>
+  <title>Dashboard for /var/www/html/frontend/models/game/pools</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/nv.d3.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
      <div class="col-md-12">
       <ol class="breadcrumb">
         <li><a href="../index.html">/var/www/html/frontend/models/game</a></li>
-        <li><a href="index.html">base</a></li>
+        <li><a href="index.html">pools</a></li>
         <li class="active">(Dashboard)</li>
 
       </ol>
@@ -158,7 +158,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,0], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,2], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -176,7 +176,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,0], "Method Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,12], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -226,7 +226,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([], 'Class Complexity'))
+      .datum(getComplexityData([[100,14,"<a href=\"CharacterPool.php.html#18\">CharacterPool<\/a>"],[100,4,"<a href=\"HoneyPool.php.html#14\">HoneyPool<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -250,7 +250,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([], 'Method Complexity'))
+      .datum(getComplexityData([[100,1,"<a href=\"CharacterPool.php.html#33\">CharacterPool::__construct<\/a>"],[100,1,"<a href=\"CharacterPool.php.html#41\">CharacterPool::getBees<\/a>"],[100,1,"<a href=\"CharacterPool.php.html#46\">CharacterPool::setPlayer<\/a>"],[100,3,"<a href=\"CharacterPool.php.html#51\">CharacterPool::addBee<\/a>"],[100,1,"<a href=\"CharacterPool.php.html#76\">CharacterPool::getPlayer<\/a>"],[100,3,"<a href=\"CharacterPool.php.html#84\">CharacterPool::searchBee<\/a>"],[100,1,"<a href=\"CharacterPool.php.html#96\">CharacterPool::killAllBees<\/a>"],[100,2,"<a href=\"CharacterPool.php.html#101\">CharacterPool::kill<\/a>"],[100,1,"<a href=\"CharacterPool.php.html#109\">CharacterPool::killPlayer<\/a>"],[100,1,"<a href=\"HoneyPool.php.html#19\">HoneyPool::amount<\/a>"],[100,2,"<a href=\"HoneyPool.php.html#24\">HoneyPool::takeHoney<\/a>"],[100,1,"<a href=\"HoneyPool.php.html#33\">HoneyPool::bringHoney<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);
