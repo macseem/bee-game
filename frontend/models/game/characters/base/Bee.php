@@ -6,11 +6,12 @@
  * Time: 03:03
  */
 
-namespace frontend\models\game\base;
+namespace frontend\models\game\characters\base;
 
 
 
 use frontend\exceptions\ReadOnlyException;
+use frontend\models\game\characters\base\interfaces\BeeInterface;
 use frontend\models\game\GameInterface;
 
 abstract class Bee implements BeeInterface
@@ -103,6 +104,9 @@ abstract class Bee implements BeeInterface
         $this->game->finish();
     }
 
+    /**
+     * @return \frontend\models\game\pools\interfaces\HoneyPoolInterface
+     */
     public function getHoneyPool()
     {
         return $this->game->getHoneyPool();

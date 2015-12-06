@@ -6,8 +6,10 @@
  * Time: 05:49
  */
 
-namespace frontend\models\game\base;
+namespace frontend\models\game\pools;
 
+
+use frontend\models\game\pools\interfaces\HoneyPoolInterface;
 
 class HoneyPool implements HoneyPoolInterface
 {

@@ -9,13 +9,12 @@
 namespace tests\game\inside;
 
 
-use frontend\models\game\base\BeeInterface;
-use frontend\models\game\base\CharacterPool;
-use frontend\models\game\base\HoneyPool;
+use frontend\models\game\characters\base\interfaces\BeeInterface;
+use frontend\models\game\pools\interfaces\CharacterPoolInterface;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Healer;
 use frontend\models\game\characters\Player;
-use frontend\models\game\characters\PlayerInterface;
+use frontend\models\game\characters\interfaces\PlayerInterface;
 use frontend\models\game\characters\Queen;
 use frontend\models\game\characters\Worker;
 use frontend\models\game\Game;
@@ -23,7 +22,7 @@ use tests\fixtures\GameWithoutCharacters;
 
 class CharacterPoolTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var  CharacterPool */
+    /** @var  CharacterPoolInterface */
     private static $pool;
     /** @var  Game */
     private static $game;

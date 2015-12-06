@@ -9,8 +9,6 @@
 namespace tests\characters;
 
 
-use frontend\models\game\base\CharacterPool;
-use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Worker;
 use frontend\models\game\Game;
 use tests\fixtures\GameWithoutCharacters;

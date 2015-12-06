@@ -6,7 +6,7 @@
  * Time: 22:17
  */
 use frontend\models\game\base\BeeTypesInterface;
-use frontend\models\game\characters\PlayerInterface;
+use frontend\models\game\characters\interfaces\PlayerInterface;
 
 return [
     'params' =>  [

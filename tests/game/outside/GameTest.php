@@ -9,8 +9,6 @@
 namespace tests\game\outside;
 
 
-use frontend\models\game\base\CharacterPool;
-use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\Game;
 use frontend\models\game\GameResultInterface;

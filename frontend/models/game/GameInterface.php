@@ -9,10 +9,10 @@
 namespace frontend\models\game;
 
 
-use frontend\models\game\base\CharacterPoolInterface;
 use frontend\models\game\base\GetHoneyPoolInterface;
 use frontend\models\game\base\GetPlayerInterface;
 use frontend\models\game\base\SearchBeeInterface;
+use frontend\models\game\pools\interfaces\CharacterPoolInterface;
 
 interface GameInterface extends GameTimeInterface, GameResultInterface, SearchBeeInterface, GetPlayerInterface, GetHoneyPoolInterface
 {

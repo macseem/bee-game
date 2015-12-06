@@ -6,12 +6,12 @@
  * Time: 03:28
  */
 
-namespace frontend\models\game\characters;
+namespace frontend\models\game\characters\interfaces;
 
 
 use frontend\models\game\base\DoctorInterface;
 use frontend\models\game\base\SearchBeeInterface;
-use frontend\models\game\base\BeeInterface;
+use frontend\models\game\characters\base\interfaces\BeeInterface;
 
 interface HealerInterface extends BeeInterface, DoctorInterface, SearchBeeInterface
 {

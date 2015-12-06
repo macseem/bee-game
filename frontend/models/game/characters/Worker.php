@@ -9,8 +9,9 @@
 namespace frontend\models\game\characters;
 
 
-use frontend\models\game\base\Bee;
-use frontend\models\game\base\HoneyPoolInterface;
+use frontend\models\game\characters\base\Bee;
+use frontend\models\game\pools\interfaces\HoneyPoolInterface;
+use frontend\models\game\characters\interfaces\WorkerInterface;
 
 class Worker extends Bee implements WorkerInterface
 {
