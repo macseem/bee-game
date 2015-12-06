@@ -28,26 +28,21 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'Bee Game',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Home', 'url' => ['/game/index']],
+        ['label' => 'Contact', 'url' => ['/contact']],
     ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+    if (!Yii::$app->session->get('started')) {
+        $menuItems[] = ['label' => 'Start Game', 'url' => ['/game/start']];
     } else {
-        $menuItems[] = [
-            'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-            'url' => ['/site/logout'],
-            'linkOptions' => ['data-method' => 'post']
-        ];
+        $menuItems[] = ['label' => 'Overview','url' => ['/game/overview']];
+        $menuItems[] = ['label' => 'Quit','url' => ['/game/quit']];
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
