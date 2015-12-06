@@ -9,7 +9,7 @@
 namespace frontend\models\game\characters;
 
 
-use frontend\models\game\base\Bee;
+use frontend\models\game\characters\base\Bee;
 use frontend\models\game\pools\interfaces\HoneyPoolInterface;
 use frontend\models\game\characters\interfaces\WorkerInterface;
 

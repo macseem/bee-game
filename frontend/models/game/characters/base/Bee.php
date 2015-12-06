@@ -6,7 +6,7 @@
  * Time: 03:03
  */
 
-namespace frontend\models\game\base;
+namespace frontend\models\game\characters\base;
 
 
 

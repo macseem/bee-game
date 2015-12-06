@@ -9,7 +9,7 @@
 namespace tests\characters;
 
 
-use frontend\models\game\base\Bee;
+use frontend\models\game\characters\base\Bee;
 use frontend\models\game\GameBuilder;
 use frontend\models\game\GameInterface;
 use frontend\models\game\GameResultInterface;
