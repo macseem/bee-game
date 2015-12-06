@@ -9,6 +9,8 @@
 namespace frontend\models\game\base;
 
 
+use frontend\models\game\pools\interfaces\HoneyPoolInterface;
+
 interface GetHoneyPoolInterface
 {
     /**

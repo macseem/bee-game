@@ -6,7 +6,7 @@
  * Time: 09:45
  */
 
-namespace frontend\models\game\base;
+namespace frontend\models\game\pools\interfaces;
 
 
 interface HoneyPoolInterface

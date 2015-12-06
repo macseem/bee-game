@@ -10,7 +10,7 @@ namespace frontend\models\game;
 
 
 use frontend\models\game\base\BeeTypesInterface;
-use frontend\models\game\base\HoneyPool;
+use frontend\models\game\pools\HoneyPool;
 use frontend\models\game\pools\CharacterPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Healer;

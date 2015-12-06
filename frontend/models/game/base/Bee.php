@@ -103,6 +103,9 @@ abstract class Bee implements BeeInterface
         $this->game->finish();
     }
 
+    /**
+     * @return \frontend\models\game\pools\interfaces\HoneyPoolInterface
+     */
     public function getHoneyPool()
     {
         return $this->game->getHoneyPool();

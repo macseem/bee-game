@@ -11,7 +11,7 @@ namespace frontend\models\game\characters;
 
 use frontend\models\game\base\Bee;
 use frontend\models\game\base\BeeInterface;
-use frontend\models\game\base\HoneyPoolInterface;
+use frontend\models\game\pools\interfaces\HoneyPoolInterface;
 use frontend\models\game\characters\interfaces\HealerInterface;
 
 class Healer extends Bee implements HealerInterface
