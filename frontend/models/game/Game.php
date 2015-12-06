@@ -13,7 +13,7 @@ use frontend\exceptions\AlreadyStartedGameException;
 use frontend\exceptions\CannotStartWithoutCharacterException;
 use frontend\exceptions\FinishedGameException;
 use frontend\exceptions\NotStartedGameException;
-use frontend\models\game\base\BeeInterface;
+use frontend\models\game\characters\base\interfaces\BeeInterface;
 use frontend\models\game\pools\interfaces\HoneyPoolInterface;
 use frontend\models\game\pools\interfaces\CharacterPoolInterface;
 use frontend\models\game\characters\interfaces\PlayerInterface;

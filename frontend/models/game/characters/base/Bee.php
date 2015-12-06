@@ -11,6 +11,7 @@ namespace frontend\models\game\characters\base;
 
 
 use frontend\exceptions\ReadOnlyException;
+use frontend\models\game\characters\base\interfaces\BeeInterface;
 use frontend\models\game\GameInterface;
 
 abstract class Bee implements BeeInterface

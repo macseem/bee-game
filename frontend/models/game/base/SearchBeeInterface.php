@@ -9,6 +9,8 @@
 namespace frontend\models\game\base;
 
 
+use frontend\models\game\characters\base\interfaces\BeeInterface;
+
 interface SearchBeeInterface
 {
     /**

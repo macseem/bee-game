@@ -9,7 +9,7 @@
 namespace frontend\models\game\characters\interfaces;
 
 
-use frontend\models\game\base\BeeInterface;
+use frontend\models\game\characters\base\interfaces\BeeInterface;
 use frontend\models\game\base\KillAllInterface;
 
 interface QueenInterface extends BeeInterface, KillAllInterface

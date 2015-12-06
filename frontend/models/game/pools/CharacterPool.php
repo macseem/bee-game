@@ -10,7 +10,7 @@ namespace frontend\models\game\pools;
 
 
 use frontend\exceptions\FullPoolByTypeException;
-use frontend\models\game\base\BeeInterface;
+use frontend\models\game\characters\base\interfaces\BeeInterface;
 use frontend\models\game\base\BeeTypesInterface;
 use frontend\models\game\pools\interfaces\CharacterPoolInterface;
 use frontend\models\game\characters\interfaces\PlayerInterface;

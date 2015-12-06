@@ -9,6 +9,7 @@
 namespace frontend\models\game\base;
 
 
+use frontend\models\game\characters\base\interfaces\BeeInterface;
 use frontend\models\game\pools\interfaces\HoneyPoolInterface;
 
 interface DoctorInterface

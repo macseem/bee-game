@@ -9,7 +9,7 @@
 namespace tests\game\inside;
 
 
-use frontend\models\game\base\BeeInterface;
+use frontend\models\game\characters\base\interfaces\BeeInterface;
 use frontend\models\game\pools\interfaces\CharacterPoolInterface;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Healer;

@@ -6,8 +6,13 @@
  * Time: 03:11
  */
 
-namespace frontend\models\game\base;
+namespace frontend\models\game\characters\base\interfaces;
 
+
+use frontend\models\game\base\BeeTypesInterface;
+use frontend\models\game\base\CharacterInterface;
+use frontend\models\game\base\GetHoneyPoolInterface;
+use frontend\models\game\base\GetPlayerInterface;
 
 interface BeeInterface extends CharacterInterface, GetPlayerInterface, BeeTypesInterface, GetHoneyPoolInterface
 {
