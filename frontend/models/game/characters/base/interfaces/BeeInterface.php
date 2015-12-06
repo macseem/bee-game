@@ -10,7 +10,6 @@ namespace frontend\models\game\characters\base\interfaces;
 
 
 use frontend\models\game\base\BeeTypesInterface;
-use frontend\models\game\base\CharacterInterface;
 use frontend\models\game\base\GetHoneyPoolInterface;
 use frontend\models\game\base\GetPlayerInterface;
 

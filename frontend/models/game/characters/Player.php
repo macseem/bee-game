@@ -9,7 +9,7 @@
 namespace frontend\models\game\characters;
 
 
-use frontend\models\game\base\CharacterInterface;
+use frontend\models\game\characters\base\interfaces\CharacterInterface;
 use frontend\models\game\GameInterface;
 use frontend\models\game\characters\interfaces\PlayerInterface;
 

@@ -9,7 +9,7 @@
 namespace frontend\models\game\characters\interfaces;
 
 
-use frontend\models\game\base\CharacterInterface;
+use frontend\models\game\characters\base\interfaces\CharacterInterface;
 use frontend\models\game\base\HitableInterface;
 
 interface PlayerInterface extends CharacterInterface, HitableInterface
