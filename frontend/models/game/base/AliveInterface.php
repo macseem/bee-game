@@ -15,6 +15,10 @@ interface AliveInterface
 
     public function getLifespan();
 
+    /**
+     * @param $value
+     * @return int lifespan
+     */
     public function setLifespan($value);
 
     public function toDie();

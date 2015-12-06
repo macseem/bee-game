@@ -22,7 +22,7 @@ class Healer extends Bee implements HealerInterface
     {
         if(!$pool->takeHoney(self::HEAL_COST))
             return false;
-        $bee->setLifespan($bee->getLifespan() + self::HEAL_VALUE);
+        return $bee->setLifespan($bee->getLifespan() + self::HEAL_VALUE);
     }
 
     /**

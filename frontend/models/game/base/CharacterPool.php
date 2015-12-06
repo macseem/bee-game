@@ -100,6 +100,7 @@ class CharacterPool implements CharacterPoolInterface
         if(!isset($this->bees[$id]))
             return false;
         unset($this->bees[$id]);
+        return true;
     }
 
     public function killPlayer()

@@ -41,5 +41,6 @@ class SessionStorage implements GameStorageInterface
         if(empty($this->session->get('game')))
             return false;
         $this->session->offsetUnset('game');
+        return true;
     }
 }

@@ -12,6 +12,7 @@ namespace frontend\models\game;
 use frontend\exceptions\AlreadyStartedGameException;
 use frontend\exceptions\CannotStartWithoutCharacterException;
 use frontend\exceptions\FinishedGameException;
+use frontend\exceptions\ImpossibleCaseException;
 use frontend\exceptions\NotStartedGameException;
 use frontend\models\game\base\BeeInterface;
 use frontend\models\game\base\CharacterPoolInterface;
@@ -98,7 +99,7 @@ class Game implements GameInterface
             return $this->setWinResult();
         if(empty($this->getCharacterPool()->getPlayer()))
             return $this->setLoseResult();
-
+        throw new ImpossibleCaseException("This case is impossible. Please pay attention", 550);
     }
 
     public function isFinished()
