@@ -10,6 +10,7 @@ namespace frontend\models\game\characters;
 
 
 use frontend\models\game\base\Bee;
+use frontend\models\game\interfaces\characters\QueenInterface;
 
 class Queen extends Bee implements QueenInterface
 {
