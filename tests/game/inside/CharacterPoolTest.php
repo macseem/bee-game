@@ -11,11 +11,10 @@ namespace tests\game\inside;
 
 use frontend\models\game\base\BeeInterface;
 use frontend\models\game\base\CharacterPool;
-use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Healer;
 use frontend\models\game\characters\Player;
-use frontend\models\game\characters\PlayerInterface;
+use frontend\models\game\interfaces\characters\PlayerInterface;
 use frontend\models\game\characters\Queen;
 use frontend\models\game\characters\Worker;
 use frontend\models\game\Game;

@@ -10,7 +10,7 @@ namespace frontend\models\game\base;
 
 
 use frontend\exceptions\FullPoolByTypeException;
-use frontend\models\game\characters\PlayerInterface;
+use frontend\models\game\interfaces\characters\PlayerInterface;
 
 class CharacterPool implements CharacterPoolInterface
 {

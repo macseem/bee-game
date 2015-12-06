@@ -11,6 +11,7 @@ namespace frontend\models\game\characters;
 
 use frontend\models\game\base\CharacterInterface;
 use frontend\models\game\GameInterface;
+use frontend\models\game\interfaces\characters\PlayerInterface;
 
 class Player implements PlayerInterface
 {

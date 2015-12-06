@@ -9,7 +9,7 @@
 namespace frontend\models\game\base;
 
 
-use frontend\models\game\characters\PlayerInterface;
+use frontend\models\game\interfaces\characters\PlayerInterface;
 
 interface GetPlayerInterface
 {

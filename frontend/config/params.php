@@ -1,6 +1,6 @@
 <?php
 use frontend\models\game\base\BeeTypesInterface;
-use frontend\models\game\characters\PlayerInterface;
+use frontend\models\game\interfaces\characters\PlayerInterface;
 
 return [
     'gameConfig' => [
