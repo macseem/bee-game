@@ -9,10 +9,9 @@
 namespace tests\characters;
 
 
-use frontend\models\game\base\CharacterPool;
-use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Healer;
 use frontend\models\game\Game;
+use tests\fixtures\GameWithoutCharacters;
 
 class HealerTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,7 +20,7 @@ class HealerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->game = new Game(new CharacterPool(), new HoneyPool(), \Yii::$app->params);
+        $this->game = GameWithoutCharacters::get();
         $this->game->getCharacterPool()->addBee(new Healer($this->game));
         $this->game->getHoneyPool()->bringHoney(10000);
     }

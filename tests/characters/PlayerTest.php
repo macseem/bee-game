@@ -9,11 +9,8 @@
 namespace tests\characters;
 
 
-use frontend\models\game\base\CharacterPool;
-use frontend\models\game\base\HoneyPool;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
-use frontend\models\game\Game;
 use tests\fixtures\GameWithoutBees;
 use tests\fixtures\GameWithoutCharacters;
 

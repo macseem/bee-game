@@ -9,8 +9,8 @@
 namespace tests\fixtures;
 
 
-use frontend\models\game\base\CharacterPool;
 use frontend\models\game\base\HoneyPool;
+use frontend\models\game\pools\CharacterPool;
 use frontend\models\game\Game;
 use frontend\models\game\GameInterface;
 

@@ -6,10 +6,13 @@
  * Time: 02:19
  */
 
-namespace frontend\models\game\base;
+namespace frontend\models\game\pools;
 
 
 use frontend\exceptions\FullPoolByTypeException;
+use frontend\models\game\base\BeeInterface;
+use frontend\models\game\base\BeeTypesInterface;
+use frontend\models\game\base\CharacterPoolInterface;
 use frontend\models\game\characters\interfaces\PlayerInterface;
 
 class CharacterPool implements CharacterPoolInterface
