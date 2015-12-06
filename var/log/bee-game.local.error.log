@@ -1,2 +1,3 @@
 2015/12/05 20:17:01 [error] 8#8: *37 connect() failed (113: No route to host) while connecting to upstream, client: 192.168.99.1, server: bee-game.com, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.48:9000", host: "bee-game.com"
 2015/12/05 20:17:08 [error] 8#8: *39 connect() failed (113: No route to host) while connecting to upstream, client: 192.168.99.1, server: bee-game.com, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.48:9000", host: "bee-game.com"
+2015/12/06 11:48:57 [error] 8#8: *591 open() "/var/www/html/frontend/web/index.php/img/github.png" failed (20: Not a directory), client: 192.168.99.1, server: bee-game.com, request: "GET /index.php/img/github.png HTTP/1.1", host: "bee-game.com", referrer: "http://bee-game.com/index.php/contact"
