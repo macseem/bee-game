@@ -16,7 +16,7 @@ use frontend\exceptions\NotStartedGameException;
 use frontend\models\game\base\BeeInterface;
 use frontend\models\game\base\CharacterPoolInterface;
 use frontend\models\game\base\HoneyPoolInterface;
-use frontend\models\game\interfaces\characters\PlayerInterface;
+use frontend\models\game\characters\interfaces\PlayerInterface;
 
 class Game implements GameInterface
 {

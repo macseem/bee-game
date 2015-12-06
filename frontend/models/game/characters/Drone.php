@@ -11,7 +11,7 @@ namespace frontend\models\game\characters;
 
 use frontend\models\game\base\Bee;
 use frontend\models\game\base\CharacterInterface;
-use frontend\models\game\interfaces\characters\DroneInterface;
+use frontend\models\game\characters\interfaces\DroneInterface;
 
 class Drone extends Bee implements DroneInterface
 {

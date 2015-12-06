@@ -6,7 +6,7 @@
  * Time: 03:28
  */
 
-namespace frontend\models\game\interfaces\characters;
+namespace frontend\models\game\characters\interfaces;
 
 
 use frontend\models\game\base\HitableInterface;

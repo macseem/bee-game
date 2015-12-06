@@ -11,7 +11,7 @@ namespace frontend\models\game\characters;
 
 use frontend\models\game\base\Bee;
 use frontend\models\game\base\HoneyPoolInterface;
-use frontend\models\game\interfaces\characters\WorkerInterface;
+use frontend\models\game\characters\interfaces\WorkerInterface;
 
 class Worker extends Bee implements WorkerInterface
 {
