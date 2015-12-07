@@ -9,15 +9,14 @@
 namespace tests\game\inside;
 
 
-use frontend\models\game\characters\base\interfaces\BeeInterface;
+use frontend\models\game\characters\base\interfaces\CharacterInterface;
+use frontend\models\game\characters\Character;
 use frontend\models\game\pools\interfaces\CharacterPoolInterface;
-use frontend\models\game\characters\Drone;
-use frontend\models\game\characters\Healer;
-use frontend\models\game\characters\Player;
-use frontend\models\game\characters\interfaces\PlayerInterface;
-use frontend\models\game\characters\Queen;
-use frontend\models\game\characters\Worker;
 use frontend\models\game\Game;
+use frontend\models\game\tools\healer\Healer;
+use frontend\models\game\tools\hitter\Hitter;
+use frontend\models\game\tools\honeyMaker\HoneyMaker;
+use frontend\models\game\tools\lazy\Lazy;
 use tests\fixtures\GameWithoutCharacters;
 
 class CharacterPoolTest extends \PHPUnit_Framework_TestCase
@@ -40,7 +39,7 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
 
     public function testAddPlayer()
     {
-        self::$pool->setPlayer(new Player(self::$game));
+        self::$pool->setPlayer(new Character(Character::BEE_TYPE_PLAYER,self::$game, new Hitter(self::$game)));
     }
 
     /**
@@ -48,11 +47,12 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddDrone()
     {
-        self::$pool->addBee(new Drone(self::$game));
-        self::$pool->addBee(new Drone(self::$game));
-        self::$pool->addBee(new Drone(self::$game));
-        self::$pool->addBee(new Drone(self::$game));
-        self::$pool->addBee(new Drone(self::$game));
+        $drone = new Character(Character::BEE_TYPE_DRONE,self::$game, new Hitter(self::$game));
+        self::$pool->addBee(clone $drone);
+        self::$pool->addBee(clone $drone);
+        self::$pool->addBee(clone $drone);
+        self::$pool->addBee(clone $drone);
+        self::$pool->addBee(clone $drone);
     }
 
     /**
@@ -60,11 +60,12 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddWorker()
     {
-        self::$pool->addBee(new Worker(self::$game));
-        self::$pool->addBee(new Worker(self::$game));
-        self::$pool->addBee(new Worker(self::$game));
-        self::$pool->addBee(new Worker(self::$game));
-        self::$pool->addBee(new Worker(self::$game));
+        $drone = new Character(Character::BEE_TYPE_WORKER,self::$game, new HoneyMaker(self::$game));
+        self::$pool->addBee(clone $drone);
+        self::$pool->addBee(clone $drone);
+        self::$pool->addBee(clone $drone);
+        self::$pool->addBee(clone $drone);
+        self::$pool->addBee(clone $drone);
     }
 
     /**
@@ -72,11 +73,12 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddHealer()
     {
-        self::$pool->addBee(new Healer(self::$game));
-        self::$pool->addBee(new Healer(self::$game));
-        self::$pool->addBee(new Healer(self::$game));
-        self::$pool->addBee(new Healer(self::$game));
-        self::$pool->addBee(new Healer(self::$game));
+        $drone = new Character(Character::BEE_TYPE_HEALER,self::$game, new Healer(self::$game));
+        self::$pool->addBee(clone $drone);
+        self::$pool->addBee(clone $drone);
+        self::$pool->addBee(clone $drone);
+        self::$pool->addBee(clone $drone);
+        self::$pool->addBee(clone $drone);
     }
 
     /**
@@ -84,7 +86,7 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddQueen()
     {
-        self::$pool->addBee(new Queen(self::$game));
+        self::$pool->addBee( new Character(Character::BEE_TYPE_QUEEN,self::$game, new Lazy(self::$game)));
     }
 
     /**
@@ -93,7 +95,7 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testAdd2Queens()
     {
-        self::$pool->addBee(new Queen(self::$game));
+        self::$pool->addBee( new Character(Character::BEE_TYPE_QUEEN,self::$game, new Lazy(self::$game)));
     }
 
     /**
@@ -110,7 +112,7 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPlayer()
     {
-        $this->assertInstanceOf(PlayerInterface::class, self::$pool->getPlayer());
+        $this->assertEquals(Character::BEE_TYPE_PLAYER, self::$pool->getPlayer()->getType());
     }
 
     /**
@@ -118,7 +120,7 @@ class CharacterPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchBee()
     {
-        $this->assertInstanceOf(BeeInterface::class, self::$pool->searchBee());
+        $this->assertInstanceOf(CharacterInterface::class, self::$pool->searchBee());
     }
 
     /**

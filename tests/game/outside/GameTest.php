@@ -9,9 +9,10 @@
 namespace tests\game\outside;
 
 
-use frontend\models\game\characters\Drone;
+use frontend\models\game\characters\Character;
 use frontend\models\game\Game;
 use frontend\models\game\GameResultInterface;
+use frontend\models\game\tools\hitter\Hitter;
 use tests\fixtures\GameWithoutBees;
 use tests\fixtures\GameWithoutCharacters;
 use tests\fixtures\GameWithPlayerAndOneWorker;
@@ -61,7 +62,8 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
     public function testStart()
     {
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $drone = new Character(Character::BEE_TYPE_DRONE,$this->game, new Hitter($this->game));
+        $this->game->getCharacterPool()->addBee($drone);
         $this->game->start();
         $this->assertTrue($this->game->isStarted());
     }
@@ -71,7 +73,8 @@ class GameTest extends \PHPUnit_Framework_TestCase
      */
     public function testStartAlreadyStartedGame()
     {
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $drone = new Character(Character::BEE_TYPE_DRONE,$this->game, new Hitter($this->game));
+        $this->game->getCharacterPool()->addBee($drone);
         $this->game->start();
         $this->game->start();
     }
@@ -99,7 +102,8 @@ class GameTest extends \PHPUnit_Framework_TestCase
     public function testGameTime()
     {
         $reflection = new \ReflectionClass(Game::class);
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $drone = new Character(Character::BEE_TYPE_DRONE,$this->game, new Hitter($this->game));
+        $this->game->getCharacterPool()->addBee($drone);
         $this->game->start();
         $this->game->getCharacterPool()->killAllBees();
         $this->game->finish();
@@ -119,13 +123,15 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
     public function testFinishStartedNotEmptyGameReturnFalse()
     {
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $drone = new Character(Character::BEE_TYPE_DRONE,$this->game, new Hitter($this->game));
+        $this->game->getCharacterPool()->addBee($drone);
         $this->assertFalse($this->game->finish());
     }
 
     public function testFinishStartedEmptyGameReturnDraw()
     {
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $drone = new Character(Character::BEE_TYPE_DRONE,$this->game, new Hitter($this->game));
+        $this->game->getCharacterPool()->addBee($drone);
         $this->game->start();
         $this->game->getCharacterPool()->killAllBees();
         $this->game->getCharacterPool()->killPlayer();
@@ -134,7 +140,8 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
     public function testFinishStartedGameWithPlayerAndEmptyBeesReturnWin()
     {
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $drone = new Character(Character::BEE_TYPE_DRONE,$this->game, new Hitter($this->game));
+        $this->game->getCharacterPool()->addBee($drone);
         $this->game->start();
         $this->game->getCharacterPool()->killAllBees();
         $this->assertEquals(GameResultInterface::RESULT_WIN, $this->game->finish());
@@ -142,9 +149,10 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
     public function testFinishStartedGameWithBeesAndEmptyPlayerReturnLose()
     {
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $drone = new Character(Character::BEE_TYPE_DRONE,$this->game, new Hitter($this->game));
+        $this->game->getCharacterPool()->addBee($drone);
         $this->game->start();
-        $this->game->getPlayer()->toDie();
+        $this->game->getCharacterPool()->getPlayer()->toDie();
         $this->assertEquals(GameResultInterface::RESULT_LOSE, $this->game->finish());
     }
 

@@ -9,9 +9,8 @@
 namespace tests\game\outside;
 
 
-use frontend\models\game\characters\Player;
+use frontend\models\game\base\CharacterTypesInterface;
 use frontend\models\game\Game;
-use frontend\models\game\GameBuilder;
 use frontend\models\game\SessionStorage;
 use tests\fixtures\GameWith4Drones;
 use yii\web\Session;
@@ -45,7 +44,7 @@ class SessionStorageTest extends \PHPUnit_Framework_TestCase
         $this->sessionStub->expects($this->exactly(2))->method('get')->withAnyParameters()->willReturn(serialize($this->game));
         $game = $this->storage->get();
         $this->assertEquals(4, count($game->getCharacterPool()->getBees()));
-        $this->assertInstanceOf(Player::class, $game->getPlayer());
+        $this->assertEquals(CharacterTypesInterface::BEE_TYPE_PLAYER, $game->getCharacterPool()->getPlayer()->getType());
     }
 
     /**

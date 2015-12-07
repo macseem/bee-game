@@ -21,7 +21,7 @@ namespace tests\game\outside {
 
 
     use frontend\models\game\base\BeeTypesInterface;
-    use frontend\models\game\characters\Player;
+    use frontend\models\game\base\CharacterTypesInterface;
     use frontend\models\game\GameBuilder;
 
 
@@ -35,7 +35,8 @@ namespace tests\game\outside {
             }
             $builder = new GameBuilder($config, \Yii::$app->params);
             $game = $builder->buildGame();
-            $this->assertInstanceOf(Player::class, $game->getPlayer());
+            $this->assertEquals(CharacterTypesInterface::BEE_TYPE_PLAYER,
+                $game->getCharacterPool()->getPlayer()->getType());
             $this->assertEquals(count(BeeTypesInterface::BEE_AVAILABLE_TYPES), count($game->getCharacterPool()->getBees()));
             foreach (BeeTypesInterface::BEE_AVAILABLE_TYPES as $type) {
                 foreach ($game->getCharacterPool()->getBees() as $bee) {
@@ -46,21 +47,11 @@ namespace tests\game\outside {
             }
         }
 
-        public function testSettingTypeClasses()
-        {
-            $classes = [1, 2, 3];
-            $builder = new GameBuilder([], [], $classes);
-            $property = new \ReflectionProperty(GameBuilder::class, 'classes');
-            $property->setAccessible(true);
-            $actualClasses = $property->getValue($builder);
-            $this->assertEquals($classes, $actualClasses);
-        }
-
         public function testCacheCalls()
         {
             global $unserializeCalls;
             $unserializeCalls = 0;
-            $builder = new GameBuilder([],[]);
+            $builder = new GameBuilder([],\Yii::$app->params);
             $builder->buildGame();
             $builder->buildGame();
             $builder->buildGame();

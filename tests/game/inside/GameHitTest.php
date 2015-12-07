@@ -9,11 +9,11 @@
 namespace tests\game\inside;
 
 
-use frontend\models\game\characters\Drone;
-use frontend\models\game\characters\Player;
+use frontend\models\game\base\CharacterTypesInterface;
+use frontend\models\game\characters\Character;
 use frontend\models\game\GameInterface;
+use frontend\models\game\tools\hitter\Hitter;
 use tests\fixtures\GameWithoutBees;
-use tests\fixtures\GameWithPlayerAndOneDrone;
 
 class GameHitTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,11 +42,13 @@ class GameHitTest extends \PHPUnit_Framework_TestCase
 
     public function testPlayerHitByMockCalls()
     {
-        $drone = new Drone($this->game);
-        /** @var Player | \PHPUnit_Framework_MockObject_MockObject $playerMock */
-        $playerMock = $this->getMockBuilder(Player::class)->enableOriginalConstructor()
-            ->setConstructorArgs([$this->game])->setMethods(['hit'])->getMock();
-        $playerMock->expects($this->once())->method('hit')->with($drone)->willReturn(true);
+        $drone = new Character(Character::BEE_TYPE_DRONE,$this->game, new Hitter($this->game));
+
+        /** @var Character | \PHPUnit_Framework_MockObject_MockObject $playerMock */
+        $playerMock = $this->getMockBuilder(Character::class)->enableOriginalConstructor()
+            ->setConstructorArgs([CharacterTypesInterface::BEE_TYPE_PLAYER,$this->game, new Hitter($this->game)])
+            ->setMethods(['step'])->getMock();
+        $playerMock->expects($this->once())->method('step')->with($drone)->willReturn(true);
         $this->game->getCharacterPool()->setPlayer($playerMock);
         $this->game->getCharacterPool()->addBee($drone);
         $this->game->start();
@@ -56,9 +58,9 @@ class GameHitTest extends \PHPUnit_Framework_TestCase
     public function testHitDroneByMockCalls()
     {
         $game = GameWithoutBees::get();
-        /** @var Drone | \PHPUnit_Framework_MockObject_MockObject $droneMock */
-        $droneMock = $this->getMockObject(Drone::class, [$this->game], [
-            'beforeTakeHit' => [ 'times' => $this->once(), 'return' => true ],
+        /** @var Character | \PHPUnit_Framework_MockObject_MockObject $droneMock */
+        $droneMock = $this->getMockObject(Character::class,
+            [CharacterTypesInterface::BEE_TYPE_PLAYER,$this->game, new Hitter($this->game)], [
             'takeHit' => [ 'times' => $this->once(), 'return' => true ],
         ]);
         $game->getCharacterPool()->addBee($droneMock);
@@ -68,13 +70,15 @@ class GameHitTest extends \PHPUnit_Framework_TestCase
 
     public function testHitDroneByLifespan()
     {
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
-        $droneExpected = $this->game->searchBee()->getLifespan();
-        $playerExpected = $this->game->searchBee()->getLifespan();
+        $drone = new Character(Character::BEE_TYPE_DRONE,$this->game, new Hitter($this->game));
+
+        $this->game->getCharacterPool()->addBee($drone);
+        $droneExpected = $this->game->getCharacterPool()->searchBee()->getLifespan();
+        $playerExpected = $this->game->getCharacterPool()->getPlayer()->getLifespan();
         $this->game->start();
         $this->game->hit();
-        $droneActual = $this->game->searchBee()->getLifespan();
-        $playerActual = $this->game->searchBee()->getLifespan();
+        $droneActual = $this->game->getCharacterPool()->searchBee()->getLifespan();
+        $playerActual = $this->game->getCharacterPool()->getPlayer()->getLifespan();
         $this->assertLessThan($droneExpected, $droneActual);
         $this->assertLessThan($playerExpected, $playerActual);
     }
@@ -92,7 +96,9 @@ class GameHitTest extends \PHPUnit_Framework_TestCase
      */
     public function testHitAlreadyFinishedGame_result_Exception()
     {
-        $this->game->getCharacterPool()->addBee(new Drone($this->game));
+        $drone = new Character(Character::BEE_TYPE_DRONE,$this->game, new Hitter($this->game));
+
+        $this->game->getCharacterPool()->addBee($drone);
         $this->game->start();
         $this->game->getCharacterPool()->killAllBees();
         $this->game->finish();
