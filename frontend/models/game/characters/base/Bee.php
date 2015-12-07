@@ -12,32 +12,11 @@ namespace frontend\models\game\characters\base;
 
 use frontend\exceptions\ReadOnlyException;
 use frontend\models\game\characters\base\interfaces\BeeInterface;
-use frontend\models\game\GameInterface;
 
-abstract class Bee implements BeeInterface
+abstract class Bee extends Character implements BeeInterface
 {
-    /** @var  GameInterface */
-    private $game;
-    private $lifespan;
+
     private $id;
-
-    public function getHitAmount($criticalPercent)
-    {
-        $amount = $this->game->getConfig()['hitAmounts'][$this->getType()];
-        return  $amount + $amount/100*$criticalPercent;
-    }
-
-    final public function __construct(GameInterface $game)
-    {
-        $this->game = $game;
-        $this->lifespan = $this->getLifespanMax();
-        $this->init();
-    }
-
-    public function getLifespanMax()
-    {
-        return $this->game->getConfig()['maxLifespans'][$this->getType()];
-    }
 
     public function setId($id)
     {
@@ -50,58 +29,14 @@ abstract class Bee implements BeeInterface
         return $this->id;
     }
 
-    public function init() {}
-
     public function getPlayer()
     {
-        return $this->game->getPlayer();
+        return $this->getGame()->getPlayer();
     }
 
     public function getCharacterPool()
     {
-        return $this->game->getCharacterPool();
-    }
-
-    public function getLifespan()
-    {
-        return $this->lifespan;
-    }
-
-    public function setLifespan($value)
-    {
-        if($value < $this->getLifespanMax())
-            return $this->lifespan = $value;
-        return $this->lifespan = $this->getLifespanMax();
-    }
-
-    public function beforeTakeHit()
-    {
-        return true;
-    }
-
-    public function takeHit($criticalPercent)
-    {
-        $this->setLifespan($this->getLifespan() - $this->getHitAmount($criticalPercent));
-    }
-
-    final public function afterTakeHit()
-    {
-        if($this->getLifespan() <=0 )
-            $this->toDie();
-    }
-
-
-    public function beforeDead()
-    {
-        // TODO: Implement beforeDead() method.
-    }
-
-
-    final public function toDie()
-    {
-        $this->beforeDead();
-        $this->game->getCharacterPool()->kill($this->id);
-        $this->game->finish();
+        return $this->getGame()->getCharacterPool();
     }
 
     /**
@@ -109,7 +44,12 @@ abstract class Bee implements BeeInterface
      */
     public function getHoneyPool()
     {
-        return $this->game->getHoneyPool();
+        return $this->getGame()->getHoneyPool();
+    }
+
+    public function beforeDead()
+    {
+        return $this->getCharacterPool()->kill($this->id);
     }
 
 }

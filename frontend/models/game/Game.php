@@ -45,14 +45,8 @@ class Game implements GameInterface
         $bee = $this->searchBee();
         $player = $this->getPlayer();
 
-        $player->beforeHit();
-        $bee->beforeTakeHit();
-
         $player->hit($bee);
-        $bee->takeHit(0);
 
-        $player->afterHit();
-        $bee->afterTakeHit();
     }
 
     /**

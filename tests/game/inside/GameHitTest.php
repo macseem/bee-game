@@ -13,6 +13,7 @@ use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
 use frontend\models\game\GameInterface;
 use tests\fixtures\GameWithoutBees;
+use tests\fixtures\GameWithPlayerAndOneDrone;
 
 class GameHitTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,25 +40,30 @@ class GameHitTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    public function testPlayerHitByMockCalls()
+    {
+        $drone = new Drone($this->game);
+        /** @var Player | \PHPUnit_Framework_MockObject_MockObject $playerMock */
+        $playerMock = $this->getMockBuilder(Player::class)->enableOriginalConstructor()
+            ->setConstructorArgs([$this->game])->setMethods(['hit'])->getMock();
+        $playerMock->expects($this->once())->method('hit')->with($drone)->willReturn(true);
+        $this->game->getCharacterPool()->setPlayer($playerMock);
+        $this->game->getCharacterPool()->addBee($drone);
+        $this->game->start();
+        $this->game->hit();
+    }
+
     public function testHitDroneByMockCalls()
     {
-        /** @var Player | \PHPUnit_Framework_MockObject_MockObject $playerMock */
-        $playerMock = $this->getMockObject(Player::class, [$this->game], [
-            'beforeHit' => [ 'times' => $this->once(), 'return' => true ],
-            'hit' => [ 'times' => $this->once(), 'return' => true ],
-            'afterHit' => [ 'times' => $this->once(), 'return' => true ],
-
-        ]);
-
+        $game = GameWithoutBees::get();
         /** @var Drone | \PHPUnit_Framework_MockObject_MockObject $droneMock */
         $droneMock = $this->getMockObject(Drone::class, [$this->game], [
             'beforeTakeHit' => [ 'times' => $this->once(), 'return' => true ],
             'takeHit' => [ 'times' => $this->once(), 'return' => true ],
         ]);
-        $this->game->getCharacterPool()->setPlayer($playerMock);
-        $this->game->getCharacterPool()->addBee($droneMock);
-        $this->game->start();
-        $this->game->hit();
+        $game->getCharacterPool()->addBee($droneMock);
+        $game->start();
+        $game->hit();
     }
 
     public function testHitDroneByLifespan()

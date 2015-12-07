@@ -12,7 +12,6 @@ namespace tests\characters;
 use frontend\models\game\characters\Drone;
 use frontend\models\game\characters\Player;
 use tests\fixtures\GameWithoutBees;
-use tests\fixtures\GameWithoutCharacters;
 
 class PlayerTest extends \PHPUnit_Framework_TestCase
 {
@@ -50,7 +49,7 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
 
     public function testHit()
     {
-        $game = GameWithoutCharacters::get();
+        $game = GameWithoutBees::get();
         $bee = new Drone($game);
         $game->getCharacterPool()->addBee($bee);
         $firstLifespan = $bee->getLifespan();
