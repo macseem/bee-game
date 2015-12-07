@@ -10,10 +10,18 @@ namespace frontend\models\game\characters\base\interfaces;
 
 
 use frontend\models\game\base\AliveInterface;
+use frontend\models\game\base\BeeInterface;
 use frontend\models\game\base\BeforeDeadInterface;
+use frontend\models\game\base\CharacterTypesInterface;
+use frontend\models\game\base\GameStepInterface;
 use frontend\models\game\base\HitTakerInterface;
 
-interface CharacterInterface extends AliveInterface, HitTakerInterface, BeforeDeadInterface
+interface CharacterInterface extends AliveInterface,
+    HitTakerInterface,
+    BeforeDeadInterface,
+    GameStepInterface,
+    CharacterTypesInterface,
+    BeeInterface
 {
     public function getType();
 }

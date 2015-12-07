@@ -11,7 +11,6 @@ namespace frontend\models\game\tools\hitter;
 
 use frontend\models\game\base\HitTakerInterface;
 use frontend\models\game\characters\base\interfaces\CharacterInterface;
-use frontend\models\game\GameInterface;
 use frontend\models\game\tools\Tool;
 
 class Hitter extends Tool implements HitterInterface
@@ -19,12 +18,10 @@ class Hitter extends Tool implements HitterInterface
 
     public function hit(HitTakerInterface $character, $criticalPercent)
     {
-        $character->beforeTakeHit();
         $character->takeHit($criticalPercent);
-        $character->afterTakeHit();
     }
 
-    public function step(CharacterInterface $character, GameInterface $game)
+    public function step(CharacterInterface $character)
     {
         return $this->hit($character, $this->getCriticalPercent());
     }

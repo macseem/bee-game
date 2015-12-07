@@ -15,5 +15,16 @@ use frontend\models\game\GameInterface;
 
 abstract class Tool implements GameStepInterface
 {
-    abstract public function step(CharacterInterface $character, GameInterface $game);
+    private $game;
+    public function __construct(GameInterface $game)
+    {
+        $this->game = $game;
+    }
+
+    protected function getGame()
+    {
+        return $this->game;
+    }
+
+    abstract public function step(CharacterInterface $character);
 }

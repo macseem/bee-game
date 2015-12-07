@@ -10,7 +10,6 @@ namespace frontend\models\game\tools\lazy;
 
 
 use frontend\models\game\characters\base\interfaces\CharacterInterface;
-use frontend\models\game\GameInterface;
 use frontend\models\game\tools\Tool;
 
 class Lazy extends Tool implements LazyInterface
@@ -21,7 +20,7 @@ class Lazy extends Tool implements LazyInterface
         // TODO: Implement lazy() method.
     }
 
-    public function step(CharacterInterface $character, GameInterface $game)
+    public function step(CharacterInterface $character)
     {
         $this->lazy();
     }

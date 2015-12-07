@@ -10,20 +10,19 @@ namespace frontend\models\game\tools\honeyMaker;
 
 
 use frontend\models\game\characters\base\interfaces\CharacterInterface;
-use frontend\models\game\GameInterface;
-use frontend\models\game\pools\HoneyPool;
+use frontend\models\game\pools\interfaces\HoneyPoolInterface;
 use frontend\models\game\tools\Tool;
 
 class HoneyMaker extends Tool implements HoneyMakerInterface
 {
 
-    public function make(HoneyPool $pool)
+    public function make(HoneyPoolInterface $pool)
     {
-        // TODO: Implement make() method.
+        $pool->bringHoney($this->getGame()->getConfig()['tools']['honeyMaker']['amount']);
     }
 
-    public function step(CharacterInterface $character, GameInterface $game)
+    public function step(CharacterInterface $character)
     {
-        // TODO: Implement step() method.
+        $this->make($this->getGame()->getHoneyPool());
     }
 }

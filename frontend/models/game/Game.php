@@ -13,10 +13,8 @@ use frontend\exceptions\AlreadyStartedGameException;
 use frontend\exceptions\CannotStartWithoutCharacterException;
 use frontend\exceptions\FinishedGameException;
 use frontend\exceptions\NotStartedGameException;
-use frontend\models\game\characters\base\interfaces\BeeInterface;
 use frontend\models\game\pools\interfaces\HoneyPoolInterface;
 use frontend\models\game\pools\interfaces\CharacterPoolInterface;
-use frontend\models\game\characters\interfaces\PlayerInterface;
 
 class Game implements GameInterface
 {
@@ -42,34 +40,21 @@ class Game implements GameInterface
             throw new NotStartedGameException("You should start game first", 550);
         if($this->isFinished())
             throw new FinishedGameException("You've already finish. Restart game for hitting", 550);
-        $bee = $this->searchBee();
-        $player = $this->getPlayer();
+        $bee = $this->getCharacterPool()->searchBee();
+        $player = $this->getCharacterPool()->getPlayer();
 
-        $player->hit($bee);
+        $player->step($bee);
+        $bee->step($player);
 
     }
 
-    /**
-     * @return PlayerInterface
-     */
-    public function getPlayer()
-    {
-        return $this->getCharacterPool()->getPlayer();
-    }
 
-    /**
-     * @return BeeInterface
-     */
-    public function searchBee()
-    {
-        return $this->getCharacterPool()->searchBee();
-    }
 
     public function start()
     {
         if($this->isStarted())
             throw new AlreadyStartedGameException("This game has been already started.", 550);
-        if(empty($this->getPlayer()) || empty($this->getCharacterPool()->getBees()))
+        if(empty($this->getCharacterPool()->getPlayer()) || empty($this->getCharacterPool()->getBees()))
             throw new CannotStartWithoutCharacterException("Some characters weren't provided by Builder", 550);
         $this->started = time();
     }
@@ -81,7 +66,7 @@ class Game implements GameInterface
 
     public function finish()
     {
-        if(!$this->isStarted() || (!empty($this->getCharacterPool()->getBees()) && !empty($this->getPlayer()))) {
+        if(!$this->isStarted() || (!empty($this->getCharacterPool()->getBees()) && !empty($this->getCharacterPool()->getPlayer()))) {
             return false;
         }
         $this->finished = time();

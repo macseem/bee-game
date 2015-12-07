@@ -9,9 +9,9 @@
 namespace frontend\models\game\tools\honeyMaker;
 
 
-use frontend\models\game\pools\HoneyPool;
+use frontend\models\game\pools\interfaces\HoneyPoolInterface;
 
 interface HoneyMakerInterface
 {
-    public function make(HoneyPool $pool);
+    public function make(HoneyPoolInterface $pool);
 }

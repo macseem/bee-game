@@ -14,5 +14,5 @@ use frontend\models\game\pools\interfaces\HoneyPoolInterface;
 
 interface HealerInterface
 {
-    public function heal(AliveInterface $character, HoneyPoolInterface $pool);
+    public function healRandomBee(AliveInterface $character, HoneyPoolInterface $pool);
 }

@@ -9,18 +9,25 @@
 namespace frontend\models\game\characters\base;
 
 
+use frontend\exceptions\ReadOnlyException;
+use frontend\models\game\base\GameStepInterface;
 use frontend\models\game\characters\base\interfaces\CharacterInterface;
 use frontend\models\game\GameInterface;
 
-abstract class Character implements CharacterInterface
+class Character implements CharacterInterface
 {
+    private $id;
+    private $type;
     /** @var  GameInterface */
     private $game;
     private $lifespan;
+    private $tool;
 
-    final public function __construct(GameInterface $game)
+    final public function __construct($type, GameInterface $game, GameStepInterface $tool)
     {
+        $this->type = $type;
         $this->game = $game;
+        $this->tool = $tool;
         $this->lifespan = $this->getLifespanMax();
         $this->init();
     }
@@ -29,6 +36,17 @@ abstract class Character implements CharacterInterface
     protected function getGame()
     {
         return $this->game;
+    }
+
+    public function setId($id)
+    {
+        if($this->id===null)
+            return $this->id = $id;
+        throw new ReadOnlyException("You can set Id only one time", 403);
+    }
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getHitAmount($criticalPercent)
@@ -58,25 +76,30 @@ abstract class Character implements CharacterInterface
         return $this->lifespan = $this->getLifespanMax();
     }
 
-    abstract public function getType();
-
-    public function beforeTakeHit()
-    {
-        return true;
+    public function getType() {
+        return $this->type;
     }
 
     public function takeHit($criticalPercent)
     {
         $this->setLifespan($this->getLifespan() - $this->getHitAmount($criticalPercent));
-    }
-
-    public function afterTakeHit()
-    {
         if($this->getLifespan() <=0 )
             $this->toDie();
     }
 
-    abstract public function beforeDead();
+    public function getPlayer()
+    {
+        return $this->getGame()->getPlayer();
+    }
+
+    public function beforeDead()
+    {
+        if($this->getType() == self::BEE_TYPE_PLAYER)
+            return $this->getGame()->getCharacterPool()->killPlayer();
+        if($this->getType() == self::BEE_TYPE_QUEEN)
+            return $this->getGame()->getCharacterPool()->killAllBees();
+        return $this->getGame()->getCharacterPool()->kill($this->id);
+    }
 
     public function toDie()
     {
@@ -84,4 +107,8 @@ abstract class Character implements CharacterInterface
         $this->game->finish();
     }
 
+    public function step(CharacterInterface $character)
+    {
+        return $this->tool->step($character);
+    }
 }

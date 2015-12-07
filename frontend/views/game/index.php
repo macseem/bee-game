@@ -22,7 +22,7 @@ else
         You need to kill all bees around you;
         When you push the hit button, server randomly hits some bee;
         Before the bee is hitted it makes an action, which is defined by its type;
-        You have <?php echo $game->getPlayer()->getLifespan();?> health.
+        You have <?php echo $game->getCharacterPool()->getPlayer()->getLifespan();?> health.
         If you kill all the bees - you are a winner.
         If you are killed by the bees - you are a loser.
         Also if the last bee kills you before its death then the result is draw.

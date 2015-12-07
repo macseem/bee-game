@@ -8,13 +8,12 @@
 
 namespace frontend\models\game\base;
 
-
-use frontend\models\game\characters\base\interfaces\BeeInterface;
+use frontend\models\game\characters\base\interfaces\CharacterInterface;
 
 interface SearchBeeInterface
 {
     /**
-     * @return BeeInterface
+     * @return CharacterInterface
      */
     public function searchBee();
 

@@ -3,13 +3,15 @@
  * Created by PhpStorm.
  * User: maksim.d
  * Date: 12/4/15
- * Time: 03:16
+ * Time: 03:11
  */
 
 namespace frontend\models\game\base;
 
 
-interface HitTakerInterface
+
+interface BeeInterface
 {
-    public function takeHit($criticalPercent);
+    public function setId($id);
+    public function getId();
 }

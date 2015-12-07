@@ -27,7 +27,7 @@ function getProgressBarType($lifespanPercent) {
         <div class="panel-body">
             <table width="100%">
                 <tr>
-                    <td><span>Health</span> <span class="badge"><?=$game->getPlayer()->getLifespan()?></span></td>
+                    <td><span>Health</span> <span class="badge"><?=$game->getCharacterPool()->getPlayer()->getLifespan()?></span></td>
                     <td><span>Honey</span> <span class="badge"><?=$game->getHoneyPool()->amount()?></span></td>
                     <td><span>Count</span> <span class="badge"><?=count($game->getCharacterPool()->getBees());?></span></td>
                     <td><div> </div></td>

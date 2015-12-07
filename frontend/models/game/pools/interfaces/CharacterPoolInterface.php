@@ -9,22 +9,21 @@
 namespace frontend\models\game\pools\interfaces;
 
 
-use frontend\models\game\characters\base\interfaces\BeeInterface;
 use frontend\models\game\base\GetPlayerInterface;
 use frontend\models\game\base\KillAnyInterface;
 use frontend\models\game\base\SearchBeeInterface;
-use frontend\models\game\characters\interfaces\PlayerInterface;
+use frontend\models\game\characters\base\interfaces\CharacterInterface;
 
 interface CharacterPoolInterface extends SearchBeeInterface, GetPlayerInterface, KillAnyInterface
 {
     /**
-     * @return BeeInterface[]
+     * @return CharacterInterface[]
      */
     public function getBees();
 
-    public function setPlayer( PlayerInterface $player);
+    public function setPlayer( CharacterInterface $player);
 
-    public function addBee( BeeInterface $bee);
+    public function addBee( CharacterInterface $bee);
 
 
 }

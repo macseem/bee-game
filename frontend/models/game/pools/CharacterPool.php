@@ -10,21 +10,20 @@ namespace frontend\models\game\pools;
 
 
 use frontend\exceptions\FullPoolByTypeException;
-use frontend\models\game\characters\base\interfaces\BeeInterface;
-use frontend\models\game\base\BeeTypesInterface;
+use frontend\models\game\base\CharacterTypesInterface;
+use frontend\models\game\characters\base\interfaces\CharacterInterface;
 use frontend\models\game\pools\interfaces\CharacterPoolInterface;
-use frontend\models\game\characters\interfaces\PlayerInterface;
 
 class CharacterPool implements CharacterPoolInterface
 {
 
     /**
-     * @var BeeInterface[]
+     * @var CharacterInterface[]
      */
     private $bees = [];
     private $queen;
     /**
-     * @var PlayerInterface
+     * @var CharacterInterface
      */
     private $player;
 
@@ -36,21 +35,21 @@ class CharacterPool implements CharacterPoolInterface
     }
 
     /**
-     * @return BeeInterface[]
+     * @return CharacterInterface[]
      */
     public function getBees()
     {
         return $this->bees;
     }
 
-    public function setPlayer(PlayerInterface $player)
+    public function setPlayer(CharacterInterface $player)
     {
         $this->player = $player;
     }
 
-    public function addBee(BeeInterface $bee)
+    public function addBee(CharacterInterface $bee)
     {
-        if($bee->getType() != BeeTypesInterface::BEE_TYPE_QUEEN){
+        if($bee->getType() != CharacterTypesInterface::BEE_TYPE_QUEEN){
             $this->bees[] = $bee;
             end($this->bees);
             $bee->setId(key($this->bees));
@@ -71,7 +70,7 @@ class CharacterPool implements CharacterPoolInterface
     }
 
     /**
-     * @return PlayerInterface
+     * @return CharacterInterface
      */
     public function getPlayer()
     {
@@ -79,7 +78,7 @@ class CharacterPool implements CharacterPoolInterface
     }
 
     /**
-     * @return BeeInterface
+     * @return CharacterInterface
      */
     public function searchBee()
     {
