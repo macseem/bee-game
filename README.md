@@ -23,7 +23,9 @@ Installation
 2. turn off any application that handles 80 port in you host machine 
 3. cd bee-game
 4. docker-compose up -d
-5. add to hosts bee-game.com domain for docker-daemon ip e.g. docker-machine ip default, if you use docker-machine 
+5. docker exec -it beegame_php_1 composer install -vvv 
+or docker exec -it beegame_php_1 /bin/bash and composer install -vvv
+6. add to hosts bee-game.com domain for docker-daemon ip e.g. docker-machine ip default, if you use docker-machine 
 
 Powered By
 -------------------
