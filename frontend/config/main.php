@@ -10,6 +10,7 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'defaultRoute' => 'game/index',
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'user' => [
@@ -32,7 +33,7 @@ return [
             ]
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'game/error',
         ],
     ],
     'params' => $params,
