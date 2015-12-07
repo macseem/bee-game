@@ -13,7 +13,5 @@ use frontend\models\game\characters\base\interfaces\CharacterInterface;
 
 interface HitableInterface
 {
-    public function beforeHit();
     public function hit(CharacterInterface $character);
-    public function afterHit();
 }

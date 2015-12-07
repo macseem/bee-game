@@ -21,19 +21,12 @@ class Player extends Character implements PlayerInterface
         return self::PLAYER_TYPE;
     }
 
-    public function beforeHit()
-    {
-        // TODO: Implement beforeHit() method.
-    }
-
     public function hit(CharacterInterface $character)
     {
+        $character->beforeTakeHit();
         $character->takeHit(0);
-    }
+        $character->afterTakeHit();
 
-    public function afterHit()
-    {
-        // TODO: Implement afterHit() method.
     }
 
     public function beforeDead()
