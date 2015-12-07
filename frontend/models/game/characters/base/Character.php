@@ -26,6 +26,11 @@ abstract class Character implements CharacterInterface
     }
     public function init() {}
 
+    protected function getGame()
+    {
+        return $this->game;
+    }
+
     public function getHitAmount($criticalPercent)
     {
         $amount = $this->game->getConfig()['hitAmounts'][$this->getType()];
@@ -53,18 +58,6 @@ abstract class Character implements CharacterInterface
         return $this->lifespan = $this->getLifespanMax();
     }
 
-
-    public function toDie()
-    {
-        $this->beforeDead();
-        $this->game->finish();
-    }
-
-    public function beforeDead()
-    {
-        // TODO: Implement beforeDead() method.
-    }
-
     abstract public function getType();
 
     public function beforeTakeHit()
@@ -76,15 +69,22 @@ abstract class Character implements CharacterInterface
     {
         $this->setLifespan($this->getLifespan() - $this->getHitAmount($criticalPercent));
     }
+
     public function afterTakeHit()
     {
         if($this->getLifespan() <=0 )
             $this->toDie();
     }
 
-    public function getGame()
+    public function beforeDead()
     {
-        return $this->game;
+        // TODO: Implement beforeDead() method.
+    }
+
+    public function toDie()
+    {
+        $this->beforeDead();
+        $this->game->finish();
     }
 
 }
