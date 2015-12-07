@@ -76,10 +76,7 @@ abstract class Character implements CharacterInterface
             $this->toDie();
     }
 
-    public function beforeDead()
-    {
-        // TODO: Implement beforeDead() method.
-    }
+    abstract public function beforeDead();
 
     public function toDie()
     {
