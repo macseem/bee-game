@@ -9,7 +9,7 @@
 namespace frontend\models\game;
 
 
-use frontend\models\game\characters\base\Character;
+use frontend\models\game\characters\Character;
 use frontend\models\game\pools\HoneyPool;
 use frontend\models\game\pools\CharacterPool;
 

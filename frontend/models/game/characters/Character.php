@@ -6,7 +6,7 @@
  * Time: 01:46
  */
 
-namespace frontend\models\game\characters\base;
+namespace frontend\models\game\characters;
 
 
 use frontend\exceptions\ReadOnlyException;
@@ -85,11 +85,6 @@ class Character implements CharacterInterface
         $this->setLifespan($this->getLifespan() - $this->getHitAmount($criticalPercent));
         if($this->getLifespan() <=0 )
             $this->toDie();
-    }
-
-    public function getPlayer()
-    {
-        return $this->getGame()->getPlayer();
     }
 
     public function beforeDead()

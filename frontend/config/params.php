@@ -5,9 +5,9 @@ use frontend\models\game\base\CharacterTypesInterface;
 return [
     'gameConfig' => [
         CharacterTypesInterface::BEE_TYPE_QUEEN  => 1,
-        CharacterTypesInterface::BEE_TYPE_HEALER => 3,
-        CharacterTypesInterface::BEE_TYPE_WORKER => 3,
-        CharacterTypesInterface::BEE_TYPE_DRONE  => 3,
+        CharacterTypesInterface::BEE_TYPE_HEALER => 1,
+        CharacterTypesInterface::BEE_TYPE_WORKER => 1,
+        CharacterTypesInterface::BEE_TYPE_DRONE  => 1,
     ],
     'maxLifespans' => [
         CharacterTypesInterface::BEE_TYPE_PLAYER => 300,

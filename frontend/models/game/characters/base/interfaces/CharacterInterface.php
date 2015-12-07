@@ -10,7 +10,7 @@ namespace frontend\models\game\characters\base\interfaces;
 
 
 use frontend\models\game\base\AliveInterface;
-use frontend\models\game\base\BeeInterface;
+use frontend\models\game\base\SetIdInterface;
 use frontend\models\game\base\BeforeDeadInterface;
 use frontend\models\game\base\CharacterTypesInterface;
 use frontend\models\game\base\GameStepInterface;
@@ -21,7 +21,7 @@ interface CharacterInterface extends AliveInterface,
     BeforeDeadInterface,
     GameStepInterface,
     CharacterTypesInterface,
-    BeeInterface
+    SetIdInterface
 {
     public function getType();
 }

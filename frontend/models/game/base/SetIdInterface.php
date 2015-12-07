@@ -10,7 +10,7 @@ namespace frontend\models\game\base;
 
 
 
-interface BeeInterface
+interface SetIdInterface
 {
     public function setId($id);
     public function getId();
