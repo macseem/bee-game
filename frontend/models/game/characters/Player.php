@@ -16,6 +16,11 @@ use frontend\models\game\characters\interfaces\PlayerInterface;
 class Player extends Character implements PlayerInterface
 {
 
+    public function getType()
+    {
+        return self::PLAYER_TYPE;
+    }
+
     public function beforeHit()
     {
         // TODO: Implement beforeHit() method.
@@ -34,10 +39,5 @@ class Player extends Character implements PlayerInterface
     public function beforeDead()
     {
         $this->getGame()->getCharacterPool()->killPlayer();
-    }
-
-    public function getType()
-    {
-        return self::PLAYER_TYPE;
     }
 }

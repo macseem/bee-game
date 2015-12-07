@@ -29,10 +29,6 @@ abstract class Bee extends Character implements BeeInterface
         return $this->id;
     }
 
-
-
-
-
     public function getPlayer()
     {
         return $this->getGame()->getPlayer();
@@ -43,18 +39,17 @@ abstract class Bee extends Character implements BeeInterface
         return $this->getGame()->getCharacterPool();
     }
 
-
-    public function beforeDead()
-    {
-        return $this->getGame()->getCharacterPool()->kill($this->id);
-    }
-
     /**
      * @return \frontend\models\game\pools\interfaces\HoneyPoolInterface
      */
     public function getHoneyPool()
     {
         return $this->getGame()->getHoneyPool();
+    }
+
+    public function beforeDead()
+    {
+        return $this->getCharacterPool()->kill($this->id);
     }
 
 }
